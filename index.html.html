@@ -1,0 +1,1201 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>수학 자동 학습 앱 · 2022 개정 고2 (오지선다 85 + 서술형 19 · 킬러 강화 · 단원 종합 챕터)</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --card: #ffffff;
+      --line: #d9e2f1;
+      --text: #17324d;
+      --sub: #5f7390;
+      --primary: #2d6cdf;
+      --primary-2: #e8f0ff;
+      --good: #14804a;
+      --good-bg: #e7f7ef;
+      --bad: #b42318;
+      --bad-bg: #fdeceb;
+      --shadow: 0 10px 30px rgba(30, 65, 114, 0.10);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Noto Sans KR', sans-serif; }
+    .app { max-width: 1400px; margin: 0 auto; padding: 20px; display: grid; grid-template-columns: 320px 1fr; gap: 20px; }
+    .panel, .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); }
+    .panel { padding: 18px; position: sticky; top: 16px; align-self: start; }
+    .brand { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+    .logo { width: 48px; height: 48px; border-radius: 14px; background: linear-gradient(135deg, #2d6cdf, #6ea3ff); color: white; display:flex; align-items:center; justify-content:center; font-weight: 800; font-size: 18px; flex-shrink:0; }
+    h1 { font-size: 1.2rem; margin: 0; line-height:1.3; }
+    .muted { color: var(--sub); line-height: 1.55; }
+    .pill { display:inline-flex; align-items:center; padding: 4px 10px; border-radius: 999px; font-size:.8rem; font-weight: 700; white-space:nowrap; }
+    .pill.ok { background: var(--good-bg); color: var(--good); }
+    .pill.no { background: var(--bad-bg); color: var(--bad); }
+    .pill.gray { background: #eef2f8; color: var(--sub); }
+    .badge { display:inline-flex; align-items:center; justify-content:center; padding: 3px 10px; border-radius: 999px; color:#fff; font-size:.78rem; font-weight:800; white-space:nowrap; }
+    .d1 { background:#2e7d32; } .d2 { background:#f9a825; color:#3e2f00; } .d3 { background:#c62828; } .d4 { background:#6a1b9a; color:#fff; }
+    .t-mc { background:#2d6cdf; } .t-sub { background:#7b5cd6; }
+    .subject-h { font-size:.78rem; font-weight:800; color:var(--sub); margin:14px 2px 6px; }
+    .subject-h:first-child { margin-top:0; }
+    .unit-list { display: grid; gap: 8px; }
+    .unit-btn { width: 100%; text-align: left; border: 1px solid var(--line); background: #fff; color: var(--text); padding: 10px 12px; border-radius: 12px; cursor: pointer; transition: .18s; font-size:.95rem; }
+    .unit-btn:hover, .unit-btn.active { border-color: var(--primary); background: #f5f9ff; transform: translateY(-1px); }
+    .main { display: grid; gap: 20px; }
+    .hero { padding: 20px; display: grid; grid-template-columns: 1.3fr .7fr; gap: 16px; }
+    .hero h2 { margin: 8px 0 10px; font-size: 1.5rem; }
+    .stats { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; }
+    .stat { background: #f8fbff; border: 1px solid var(--line); border-radius: 16px; padding: 14px; }
+    .stat .label { color: var(--sub); font-size: .84rem; }
+    .stat .value { font-size: 1.6rem; font-weight: 800; margin-top: 8px; }
+    .grid2 { display: grid; grid-template-columns: 1.1fr .9fr; gap: 20px; }
+    .card { padding: 18px; }
+    .card h3 { margin: 0 0 12px; font-size: 1.1rem; }
+    .summary-list, .explanation-list { margin: 0; padding-left: 18px; line-height: 1.7; }
+    .toolbar { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+    button { border: 0; border-radius: 12px; padding: 11px 14px; font: inherit; font-weight: 700; cursor: pointer; transition: .18s; }
+    button:disabled { opacity:.45; cursor:not-allowed; }
+    .primary { background: var(--primary); color: white; }
+    .primary:hover { filter: brightness(1.03); transform: translateY(-1px); }
+    .secondary { background: #eef3fb; color: var(--text); }
+    .secondary:hover { background: #e3ecfa; }
+    .filter-bar { display:flex; gap:8px; flex-wrap:wrap; margin-bottom: 12px; }
+    .filter-btn { border:1px solid var(--line); background:#fff; color:var(--text); padding:8px 14px; border-radius:999px; font-size:.9rem; }
+    .filter-btn.active { background: var(--primary); color:#fff; border-color: var(--primary); }
+    .bank-meta { font-size:.92rem; color:var(--sub); display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:12px; }
+    .q-item { border:1px solid var(--line); border-radius: 14px; margin-bottom: 10px; background:#fff; overflow:hidden; }
+    .q-head { width:100%; display:flex; align-items:center; gap:10px; padding: 12px 14px; background:#fff; text-align:left; cursor:pointer; }
+    .q-head:hover { background:#f7faff; }
+    .q-text { flex:1; font-size:.95rem; line-height:1.55; }
+    input[type="text"], textarea { border:1px solid var(--line); border-radius:12px; padding:11px 14px; font:inherit; color:var(--text); background:#fff; width:100%; }
+    textarea { min-height:80px; resize: vertical; }
+    .result { margin-top:10px; padding:12px 14px; border-radius:14px; display:none; line-height:1.6; font-size:.95rem; }
+    .result.good { background: var(--good-bg); color: var(--good); display:block; }
+    .result.bad { background: var(--bad-bg); color: var(--bad); display:block; }
+    .answer-line { font-weight:700; display:block; margin-bottom:4px; }
+    .sol-box { margin-top:12px; padding-top:10px; border-top:2px solid var(--line); }
+    .tag-wrap { display:flex; gap:6px; flex-wrap:wrap; margin-top:6px; }
+    .tag-btn { border:1px solid var(--line); background:#fff; color:var(--text); padding:7px 10px; border-radius:999px; font-size:.86rem; }
+    .history-item { border:1px solid var(--line); border-radius:14px; padding:12px; margin-bottom:10px; background:#fff; }
+    .history-meta { display:flex; gap:8px; flex-wrap:wrap; margin-top:8px; align-items:center; }
+    .meter { height:10px; background:#edf2fa; border-radius:999px; overflow:hidden; margin-top:6px; }
+    .meter > span { display:block; height:100%; background:linear-gradient(90deg,#2d6cdf,#7aa7ff); border-radius:999px; }
+    .unit-progress { margin-bottom:12px; }
+    .up-top { display:flex; justify-content:space-between; font-size:.92rem; }
+    .footer-note { color:var(--sub); font-size:.88rem; line-height:1.6; }
+    .data-bar { display:flex; gap:10px; flex-wrap:wrap; margin-top:10px; align-items:center; }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    .mini-btn { padding:7px 12px; font-size:.88rem; border-radius:10px; }
+    .mini-btn.danger { background: var(--bad-bg); color: var(--bad); }
+    .mini-btn.danger:hover { background: #fbdcd9; }
+    #noteTitle { margin-bottom:10px; }
+    .pad-toolbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:8px 0; }
+    .pad-sep { width:1px; height:22px; background:var(--line); margin:0 4px; }
+    .mini-btn.pad-tool { border:1px solid var(--line); background:#fff; color:var(--text); }
+    .mini-btn.pad-tool.active { background:var(--primary-2); border-color:var(--primary); color:var(--primary); font-weight:800; }
+    #padCanvas { width:100%; height:360px; display:block; background:#fff; border:1px dashed #b9c8e2; border-radius:14px; touch-action:none; cursor:crosshair; }
+    #padCanvas.erasing { cursor:none; }
+    .pad-wrap { position:relative; }
+    #eraserCursor { display:none; position:absolute; top:0; left:0; border:2px solid rgba(45,108,223,.85); background:rgba(45,108,223,.15); border-radius:50%; pointer-events:none; z-index:5; transform:translate(-50%,-50%); }
+    .eraser-size { display:flex; align-items:center; gap:6px; }
+    .eraser-size input[type=range] { width:90px; accent-color:var(--primary); }
+    .note-thumb { border:1px solid var(--line); border-radius:10px; background:#fff; display:block; max-width:100%; }
+    @media (max-width: 980px) {
+      .app { grid-template-columns:1fr; }
+      .panel { position:static; }
+      .hero, .grid2, .feedback-box, .two-col { grid-template-columns:1fr; }
+      .stats { grid-template-columns:1fr; }
+    }
+  </style>
+  <style>
+    .probpg { padding: 18px; }
+    .probpg-meta { display:flex; gap:8px; align-items:center; margin-bottom:10px; flex-wrap: wrap; }
+    .probpg-meta .pill { font-size:.85rem; }
+    .probpg-q { font-size:1.05rem; line-height:1.75; margin: 14px 0; white-space: pre-wrap; }
+    .probpg-opts { display: grid; gap: 10px; margin: 12px 0; }
+    .probpg-opt { padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 12px; cursor: pointer; transition: .18s; font-size: 1rem; line-height:1.6; background:#fff; }
+    .probpg-opt:hover { background:#f5f9ff; border-color: var(--primary); }
+    .probpg-opt.sel { background: var(--primary-2); border-color: var(--primary); }
+    .probpg-opt.correct { background: var(--good-bg); border-color: var(--good); }
+    .probpg-opt.wrong { background: var(--bad-bg); border-color: var(--bad); }
+    .probpg-actions { display: flex; gap: 10px; margin-top: 14px; flex-wrap: wrap; }
+    .probpg-actions .primary, .probpg-actions .secondary { padding: 10px 18px; font-size:.95rem; }
+    .probpg-nav { display:flex; justify-content: space-between; margin-top: 22px; gap: 10px; }
+    .probpg-progress { display:flex; gap:6px; margin: 8px 0 14px; }
+    .probpg-progress .dot { flex: 1; height: 6px; border-radius:3px; background:#d9e2f1; }
+    .probpg-progress .dot.done { background: var(--good); }
+    .probpg-progress .dot.wrong { background: var(--bad); }
+    .probpg-result-msg { font-weight:700; margin: 10px 0; padding: 10px 14px; border-radius:10px; }
+    .kw { display:inline-flex; padding:3px 10px; border-radius:999px; background:var(--primary-2); color:var(--primary); font-size:.82rem; font-weight:700; margin:2px 4px 2px 0; }
+    .selfcheck { display:flex; gap:10px; margin-top:12px; }
+    .selfcheck .primary { background: var(--good); }
+    .selfcheck .bad-btn { background: var(--bad); color:#fff; }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="panel">
+      <div class="brand">
+        <div class="logo">Σ</div>
+        <div>
+          <h1>수학 자동 학습 앱</h1>
+          <div class="muted">2022 개정 · 고2 공통</div>
+        </div>
+      </div>
+      <div class="pill">오지선다 85 + 서술형 19</div>
+      <p class="muted">단원별로 오지선다 85문항(하·중·상·킬러 4단계)과 서술형 19문항을 풀고, 채점·오답노트·해설까지 받는 학습 사이트입니다. 킬러 문항은 다단계 심화로 대폭 강화했고, 마지막에 단원 종합 챕터(하·중·상·킬러 전체 난이도 포함)가 새로 추가되었습니다. 기록은 이 브라우저에 자동 저장됩니다.</p>
+      <div class="subject-h">학습 단원 선택</div>
+      <div class="unit-list" id="unitList"></div>
+      <div class="card" style="margin-top:16px; padding:14px;">
+        <h3 style="margin-top:0;">학습 방법</h3>
+        <p class="footer-note">① 단원 선택 → 문제 풀이<br/>② 오지선다: 보기를 눌러 답 선택 후 채점<br/>③ 서술형: 답을 직접 써 보고 채점 → 모범답안·채점 포인트 확인<br/>④ 스스로 정답/오답 처리 → 오답노트 자동 저장<br/>⑤ 펜 풀이 노트에 풀이 과정을 직접 작성 (단원별 자동 저장)</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section class="hero card">
+        <div>
+          <h2 id="heroTitle">단원 선택 중</h2>
+          <div class="bank-meta" id="bankMeta" style="margin-top:10px;"></div>
+        </div>
+        <div>
+          <div class="stats">
+            <div class="stat"><div class="label">총 풀이 수</div><div class="value" id="statTotal">0</div></div>
+            <div class="stat"><div class="label">정답률</div><div class="value" id="statAccuracy">0%</div></div>
+            <div class="stat"><div class="label">오답노트 수</div><div class="value" id="statWrong">0</div></div>
+          </div>
+          <div id="noteMsg" class="footer-note" style="margin-top:10px; min-height:20px;"></div>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="toolbar">
+          <button class="secondary" id="resetStatsBtn">학습기록 초기화</button>
+        </div>
+        <h3>단원 문제은행 (문항을 누르면 풀이 창이 열려요)</h3>
+        <div class="filter-bar" id="diffFilter"></div>
+        <div id="bankList"></div>
+      </section>
+
+      <section class="card" id="noteCard">
+        <div class="toolbar" style="justify-content:space-between; align-items:center;">
+          <h3 style="margin:0;">📝 펜 풀이 노트</h3>
+          <button class="secondary mini-btn" id="noteClearBtn">지우기</button>
+        </div>
+        <p class="muted" style="margin-top:0;">펜으로 풀이 과정을 직접 써 보세요. 마우스·터치·스타일러스 모두 지원되며, 작성 중인 내용은 단원별로 자동 저장됩니다.</p>
+        <input type="text" id="noteTitle" placeholder="노트 제목 (예: 3번 문제 풀이)" />
+        <div class="pad-toolbar">
+          <button class="mini-btn pad-tool active" id="toolPen" type="button">✏️ 펜</button>
+          <button class="mini-btn pad-tool" id="toolErase" type="button">🧽 지우개</button>
+          <span class="pad-sep"></span>
+          <button class="mini-btn" id="widthMinus" type="button">굵기 −</button>
+          <button class="mini-btn" id="widthPlus" type="button">굵기 ＋</button>
+          <button class="mini-btn" id="undoBtn" type="button">↩️ 되돌리기</button>
+          <span class="pad-sep"></span>
+          <span class="eraser-size" id="eraserSizeRow" style="display:none;">
+            <label class="muted" for="eraserWidth" style="font-size:.82rem;">지우개 굵기</label>
+            <input type="range" id="eraserWidth" min="6" max="60" value="20" title="지우개 굵기" />
+            <span class="muted" id="eraserWidthVal" style="font-size:.82rem; min-width:26px; text-align:center;">20</span>
+          </span>
+          <span class="pad-sep"></span>
+          <span class="muted" id="padHint"></span>
+        </div>
+        <div class="pad-wrap">
+          <canvas id="padCanvas"></canvas>
+          <div id="eraserCursor"></div>
+        </div>
+        <div class="data-bar" style="margin-top:10px;">
+          <button class="primary" id="noteSaveBtn">이 단원에 저장</button>
+          <span class="muted" id="noteSavedInfo"></span>
+        </div>
+        <div class="data-bar" style="margin-top:10px;">
+          <button class="secondary mini-btn" id="workUndoBtn" disabled>↩️ 되돌리기</button>
+          <button class="secondary mini-btn" id="workRedoBtn" disabled>↪️ 다시하기</button>
+          <span class="muted" id="workHint"></span>
+        </div>
+        <div class="muted" style="font-size:.82rem;">지우개로 지운 획 · 펜 획 · 삭제한 노트 · 풀이 지우기 · 초기화한 기록까지 모두 되돌릴 수 있어요. 단축키: Ctrl+Z (되돌리기) · Ctrl+Shift+Z / Ctrl+Y (다시하기)</div>
+        <div id="noteList" style="margin-top:12px;"></div>
+      </section>
+
+      <section class="grid2">
+        <div class="card">
+          <h3>오답노트 복습</h3>
+          <div id="wrongNotesList"></div>
+        </div>
+        <div class="card">
+          <div class="two-col">
+            <div><h3>단원별 성취도</h3><div id="unitStats"></div></div>
+            <div><h3>최근 학습 기록</h3><div id="historyList"></div>
+              <div class="data-bar">
+                <button class="secondary mini-btn" id="exportBtn">백업 내보내기</button>
+                <button class="secondary mini-btn" id="importBtn">백업 가져오기</button>
+                <input type="file" id="importFile" accept="application/json" style="display:none;" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+  (function(g){
+  'use strict';
+  const UNITS = [
+    {id:'exp_log', name:'지수와 로그', subject:'대수', summary:[
+      '지수법칙: aᵐ×aⁿ=aᵐ⁺ⁿ, aᵐ÷aⁿ=aᵐ⁻ⁿ, (aᵐ)ⁿ=aᵐⁿ — 밑이 같을 때 성립한다.',
+      '로그: logₐx=b ⇔ x=aᵇ, 로그의 성질로 곱·거듭제곱을 덧셈·곱셈으로 바꾼다.',
+      '밑과 진수의 조건(밑>0, 밑≠1, 진수>0)을 항상 확인한다.'
+    ]},
+    {id:'exp_func', name:'지수함수·로그함수', subject:'대수', summary:[
+      'y=aˣ(a>0, a≠1)의 그래프는 점 (0,1)을 지나고, a>1이면 증가, 0<a<1이면 감소한다.',
+      '로그함수 y=logₐx는 지수함수 y=aˣ와 직선 y=x에 대칭이며 정의역은 양의 실수 전체이다.',
+      '지수·로그방정식은 밑을 같게 하여 지수·진수를 비교하거나, 치환으로 이차방정식화하여 푼다.'
+    ]},
+    {id:'trig', name:'삼각함수', subject:'대수', summary:[
+      '삼각함수는 단위원 위의 점의 좌표로 정의되고, 호도법에서 π rad = 180°이다.',
+      '특수각 30°, 45°, 60°의 sin·cos·tan 값을 숙지하면 빠르게 계산할 수 있다.',
+      'y=a·sin(bx)+c의 주기는 2π/|b|, 최댓값은 |a|+c, 최솟값은 −|a|+c이다.'
+    ]},
+    {id:'trig_app', name:'삼각함수의 활용', subject:'대수', summary:[
+      '사인법칙: a/sinA = b/sinB = c/sinC = 2R (R은 외접원의 반지름)',
+      '코사인법칙: a² = b² + c² − 2bc·cosA 로 변과 각을 연결한다.',
+      '세 변의 길이로 각의 크기를 구할 때는 코사인법칙의 변형을 사용한다.'
+    ]},
+    {id:'sequence', name:'수열', subject:'대수', summary:[
+      '등차수열: aₙ = a₁+(n−1)d, 합 Sₙ = n(a₁+aₙ)/2',
+      '등비수열: aₙ = a₁rⁿ⁻¹, 합 Sₙ = a₁(rⁿ−1)/(r−1) (r≠1)',
+      'Σ의 성질과 Σk = n(n+1)/2, Σk² = n(n+1)(2n+1)/6 공식을 활용한다.'
+    ]},
+    {id:'limit', name:'함수의 극한', subject:'미적분Ⅰ', summary:[
+      '다항함수의 극한은 x=a를 대입하여 바로 구한다.',
+      '0/0 꼴의 극한은 인수분해로 약분한 뒤 대입해 구한다.',
+      '극한값은 x=a에서의 함수값과 별개로, a 근처에서의 접근 경향으로 정의된다.'
+    ]},
+    {id:'continuity', name:'함수의 연속', subject:'미적분Ⅰ', summary:[
+      'f가 x=a에서 연속 ⇔ 좌극한 = 우극한 = f(a)',
+      '미정계수를 구하는 연속 문제는 양쪽 극한과 함숫값을 같게 놓고 방정식을 푼다.'
+    ]},
+    {id:'derivative', name:'미분계수와 도함수', subject:'미적분Ⅰ', summary:[
+      '미분계수 f′(a)는 x=a에서의 순간변화율, 즉 접선의 기울기이다.',
+      '다항함수의 도함수: (xⁿ)′=nxⁿ⁻¹, 상수항의 도함수는 0이다.',
+      '미분계수는 도함수에 x=a를 대입한 값이다.'
+    ]},
+    {id:'deriv_app', name:'도함수의 활용', subject:'미적분Ⅰ', summary:[
+      '접선의 기울기는 f′(a), 접선의 방정식은 y−f(a)=f′(a)(x−a)',
+      'f′(x)=0인 점에서 극값의 후보를 찾고, 도함수의 부호 변화로 극대·극소를 판정한다.',
+      '이차함수의 최대·최소는 꼭짓점 x=−b/2a에서 발생한다.'
+    ]},
+    {id:'integral', name:'적분', subject:'미적분Ⅰ', summary:[
+      '부정적분은 도함수의 역연산이며 상수 C를 반드시 붙인다.',
+      '정적분 ∫ₐᵇ f(x)dx = F(b)−F(a) (F는 f의 부정적분)',
+      '곡선과 x축 사이의 넓이는 정적분 값의 절댓값으로 구한다.'
+    ]},
+    {id:'final', name:'단원 종합', subject:'종합', summary:[
+      '지수·로그, 삼각함수, 수열, 함수의 극한·연속, 미분·적분을 넘나드는 종합 문제 챕터입니다.',
+      '여러 단원의 개념을 연결하여 한 문제를 해결하는 통합 사고력을 기릅니다.',
+      '단원 종합의 킬러 문제는 풀이 순서를 스스로 설계해야 해결할 수 있습니다.'
+    ]}
+  ];
+
+  const PROBLEMS = [
+    /* ============ 오지선다 30문항 ============ */
+    {unitId:'exp_log', type:'mc', diff:1, q:'log₂8 + log₂4 의 값은?',
+      opts:['5','3','4','6','7'], ans:0,
+      ex:['log₂8 = 3, log₂4 = 2 이다.','따라서 3 + 2 = 5']},
+    {unitId:'exp_log', type:'mc', diff:2, q:'방정식 log₂x + log₂(x−2) = 3 을 만족하는 x의 값은?',
+      opts:['−2','2','6','8','4'], ans:4,
+      ex:['log₂{x(x−2)} = 3 → x(x−2) = 8','x²−2x−8 = 0 → (x−4)(x+2) = 0','진수조건 x>2 이므로 x = 4']},
+    {unitId:'exp_log', type:'mc', diff:3, q:'방정식 9ˣ − 3ˣ⁺¹ − 4 = 0 을 만족하는 x의 값은?',
+      opts:['log₃2','1','log₃4','2','log₃8'], ans:2,
+      ex:['3ˣ = t (t>0) 로 치환 → t² − 3t − 4 = 0','(t−4)(t+1) = 0 → t = 4 (t>0)','3ˣ = 4 → x = log₃4']},
+    {unitId:'exp_func', type:'mc', diff:1, q:'함수 y = 2ˣ 의 그래프를 y축 방향으로 3만큼 평행이동한 그래프를 나타내는 함수는?',
+      opts:['y = 2ˣ⁺³','y = 2ˣ − 3','y = 2ˣ⁻³','y = 2ˣ + 3','y = 3·2ˣ'], ans:3,
+      ex:['y축 방향 평행이동: y = f(x) + 3','따라서 y = 2ˣ + 3']},
+    {unitId:'exp_func', type:'mc', diff:2, q:'함수 y = log₂x 의 그래프를 x축 방향으로 2만큼 평행이동한 그래프를 나타내는 함수는?',
+      opts:['y = log₂(x+2)','y = log₂(x−2)','y = log₂x + 2','y = log₂x − 2','y = log₂(2x)'], ans:1,
+      ex:['x축 방향 평행이동: y = f(x−2)','따라서 y = log₂(x−2)']},
+    {unitId:'exp_func', type:'mc', diff:3, q:'방정식 log₂(x−1) + log₂(x+2) = 2 를 만족하는 x의 값은?',
+      opts:['−3','−2','1','2','3'], ans:3,
+      ex:['log₂{(x−1)(x+2)} = 2 → (x−1)(x+2) = 4','x²+x−6 = 0 → (x+3)(x−2) = 0','진수조건 x>1 이므로 x = 2']},
+    {unitId:'trig', type:'mc', diff:1, q:'sin 120° 의 값은?',
+      opts:['1/2','√2/2','√3/2','−√3/2','−1/2'], ans:2,
+      ex:['sin 120° = sin(180°−60°) = sin 60°','따라서 √3/2']},
+    {unitId:'trig', type:'mc', diff:2, q:'함수 y = 2 sin 3x 의 주기는?',
+      opts:['2π/3','π','π/3','2π','π/6'], ans:0,
+      ex:['y = a sin(bx) 의 주기 = 2π/|b|','b = 3 이므로 주기 = 2π/3']},
+    {unitId:'trig', type:'mc', diff:3, q:'0 ≤ x < 2π 일 때 방정식 2sin²x − sinx − 1 = 0 의 모든 해의 합은?',
+      opts:['2π','5π/2','3π','4π','7π/2'], ans:4,
+      ex:['(2sinx+1)(sinx−1) = 0 → sinx = −1/2 또는 1','sinx = −1/2 : x = 7π/6, 11π/6 · sinx = 1 : x = π/2','합 = 7π/6 + 11π/6 + π/2 = 7π/2']},
+    {unitId:'trig_app', type:'mc', diff:1, q:'삼각형 ABC에서 ∠A=60°, b=8, c=5 일 때 a² 의 값은?',
+      opts:['39','49','59','69','79'], ans:1,
+      ex:['코사인법칙 a² = b²+c²−2bc·cosA','= 64+25−2·8·5·(1/2) = 89−40 = 49']},
+    {unitId:'trig_app', type:'mc', diff:2, q:'삼각형 ABC에서 ∠A=30°, ∠A의 대변의 길이 a=6 일 때 외접원의 반지름 R은?',
+      opts:['3','4','5','6','8'], ans:3,
+      ex:['사인법칙 a/sinA = 2R','6/(1/2) = 2R → 12 = 2R → R = 6']},
+    {unitId:'trig_app', type:'mc', diff:3, q:'삼각형 ABC에서 a=7, b=8, c=5 일 때 ∠A의 크기는?',
+      opts:['30°','45°','60°','90°','120°'], ans:2,
+      ex:['cosA = (b²+c²−a²)/(2bc) = (64+25−49)/(2·8·5)','= 40/80 = 1/2 → ∠A = 60°']},
+    {unitId:'sequence', type:'mc', diff:1, q:'첫째항이 3, 공차가 4인 등차수열의 제10항은?',
+      opts:['39','35','37','41','43'], ans:0,
+      ex:['aₙ = a₁ + (n−1)d','a₁₀ = 3 + 9·4 = 39']},
+    {unitId:'sequence', type:'mc', diff:2, q:'첫째항이 2, 공비가 3인 등비수열의 첫째항부터 제5항까지의 합은?',
+      opts:['242','243','244','245','246'], ans:0,
+      ex:['Sₙ = a₁(rⁿ−1)/(r−1)','S₅ = 2(3⁵−1)/(3−1) = 2·242/2 = 242']},
+    {unitId:'sequence', type:'mc', diff:3, q:'Σ (k=1부터 10까지) (2k+3) 의 값은?',
+      opts:['120','130','150','160','140'], ans:4,
+      ex:['Σ(2k+3) = 2Σk + 3·10','= 2·(10·11/2) + 30 = 110+30 = 140']},
+    {unitId:'limit', type:'mc', diff:1, q:'lim (x→2) (x²−4)/(x−2) 의 값은?',
+      opts:['2','3','5','4','6'], ans:3,
+      ex:['(x−2)(x+2)/(x−2) = x+2','x=2 대입 → 4']},
+    {unitId:'limit', type:'mc', diff:2, q:'lim (x→0) (√(x+4) − 2)/x 의 값은?',
+      opts:['1/8','1/4','1/2','1','2'], ans:1,
+      ex:['분자 유리화: (x+4−4)/(x(√(x+4)+2))','= 1/(√(x+4)+2) → x=0 → 1/4']},
+    {unitId:'limit', type:'mc', diff:3, q:'lim (x→∞) (3x²+2x−1)/(2x²−x+5) 의 값은?',
+      opts:['1/2','2/3','2','3/2','3'], ans:3,
+      ex:['분모·분자를 x² 으로 나눈다','→ 3/2']},
+    {unitId:'continuity', type:'mc', diff:1, q:'f(x) = {x²−1 (x<2), ax+1 (x≥2)} 가 x=2에서 연속일 때 상수 a의 값은?',
+      opts:['0','1','2','3','4'], ans:1,
+      ex:['좌극한 = 2²−1 = 3, 우극한 = 2a+1','3 = 2a+1 → a = 1']},
+    {unitId:'continuity', type:'mc', diff:2, q:'f(x) = {(x²−4)/(x−2) (x≠2), k (x=2)} 가 x=2에서 연속일 때 상수 k의 값은?',
+      opts:['2','3','5','6','4'], ans:4,
+      ex:['lim (x→2) (x²−4)/(x−2) = lim (x+2) = 4','연속이므로 k = 4']},
+    {unitId:'continuity', type:'mc', diff:3, q:'f(x) = {x² (x<1), ax+b (1≤x<2), 4x (x≥2)} 가 실수 전체에서 연속일 때 a+b의 값은?',
+      opts:['1','2','3','4','5'], ans:0,
+      ex:['x=1에서 1 = a+b','x=2에서 2a+b = 8','연립 → a=7, b=−6 → a+b = 1']},
+    {unitId:'derivative', type:'mc', diff:1, q:'f(x) = x³ 일 때 f′(2) 의 값은?',
+      opts:['6','8','10','12','14'], ans:3,
+      ex:['f′(x) = 3x²','f′(2) = 3·4 = 12']},
+    {unitId:'derivative', type:'mc', diff:2, q:'f(x) = 3x² − 2x + 5 일 때 f′(1) 의 값은?',
+      opts:['2','3','5','6','4'], ans:4,
+      ex:['f′(x) = 6x − 2','f′(1) = 6−2 = 4']},
+    {unitId:'derivative', type:'mc', diff:3, q:'곡선 y = x² 위의 점 (2,4)에서의 접선의 방정식은?',
+      opts:['y = 2x','y = 4x − 4','y = 4x + 4','y = 2x − 4','y = 4x'], ans:1,
+      ex:['기울기 m = f′(2) = 4','y−4 = 4(x−2) → y = 4x−4']},
+    {unitId:'deriv_app', type:'mc', diff:1, q:'f(x) = x² − 4x + 3 의 최솟값은?',
+      opts:['−3','−2','−1','0','1'], ans:2,
+      ex:['꼭짓점 x = 2','f(2) = 4−8+3 = −1']},
+    {unitId:'deriv_app', type:'mc', diff:2, q:'f(x) = x³ − 3x 의 극댓값은?',
+      opts:['−2','−1','0','1','2'], ans:4,
+      ex:['f′(x) = 3x²−3 = 3(x−1)(x+1)','x=−1에서 극대','f(−1) = −1+3 = 2']},
+    {unitId:'deriv_app', type:'mc', diff:3, q:'f(x) = x³ − 3x² + 2 의 극솟값은?',
+      opts:['−4','−3','−1','0','−2'], ans:4,
+      ex:['f′(x) = 3x²−6x = 3x(x−2)','x=2에서 극소','f(2) = 8−12+2 = −2']},
+    {unitId:'integral', type:'mc', diff:1, q:'∫ (x=0~2) 3x² dx 의 값은?',
+      opts:['8','4','6','10','12'], ans:0,
+      ex:['∫3x² dx = x³','[x³]₀² = 8']},
+    {unitId:'integral', type:'mc', diff:2, q:'∫ (x=1~3) (2x+1) dx 의 값은?',
+      opts:['8','9','10','11','12'], ans:2,
+      ex:['∫(2x+1)dx = x²+x','[x²+x]₁³ = 12−2 = 10']},
+    {unitId:'integral', type:'mc', diff:3, q:'곡선 y = x² − 4x 와 x축으로 둘러싸인 도형의 넓이는?',
+      opts:['32/3','16/3','8','10','32'], ans:0,
+      ex:['x절편: x=0, 4','넓이 = ∫₀⁴(4x−x²)dx = [2x²−x³/3]₀⁴','= 32 − 64/3 = 32/3']},
+    {"unitId":"exp_log","type":"mc","diff":1,"level":"하","q":"log₃27 + log₃(1/9) 의 값은?","opts":["−1","1","2","3","0"],"ans":1,"ex":["log₃27 = 3, log₃(1/9) = −2 이므로","3 + (−2) = 1"]},
+    {"unitId":"exp_func","type":"mc","diff":1,"level":"하","q":"함수 y = 2ˣ⁻¹ 의 그래프는 함수 y = 2ˣ 의 그래프를 어떻게 평행이동한 것인가?","opts":["y축 방향으로 1만큼","x축 방향으로 −1만큼","x축 방향으로 1만큼","y축 방향으로 −1만큼","x축 방향으로 2만큼"],"ans":2,"ex":["y = f(x−1) 는 x축 방향으로 +1만큼 평행이동한 것이다.","따라서 x축 방향으로 1만큼"]},
+    {"unitId":"trig","type":"mc","diff":1,"level":"하","q":"cos 240° 의 값은?","opts":["1/2","√3/2","−√3/2","−1/2","−√2/2"],"ans":3,"ex":["cos 240° = cos(180°+60°) = −cos 60°","따라서 −1/2"]},
+    {"unitId":"trig_app","type":"mc","diff":1,"level":"하","q":"삼각형 ABC 에서 a=8, ∠A=30° 일 때 외접원의 반지름 R 의 값은?","opts":["4","8","16","6","12"],"ans":1,"ex":["사인법칙 a/sinA = 2R","8/(1/2) = 16 = 2R → R = 8"]},
+    {"unitId":"sequence","type":"mc","diff":1,"level":"하","q":"첫째항이 3, 공비가 2인 등비수열의 제6항은?","opts":["48","64","96","192","80"],"ans":2,"ex":["aₙ = a₁·rⁿ⁻¹ = 3·2⁵","= 3·32 = 96"]},
+    {"unitId":"limit","type":"mc","diff":1,"level":"하","q":"lim (x→3) (x−3)/(x²−9) 의 값은?","opts":["1/3","1/6","0","1/2","2/3"],"ans":1,"ex":["(x−3)/((x−3)(x+3)) = 1/(x+3)","x=3 대입 → 1/6"]},
+    {"unitId":"continuity","type":"mc","diff":1,"level":"하","q":"f(x) = {x+1 (x<2), ax+3 (x≥2)} 가 x=2 에서 연속일 때 상수 a 의 값은?","opts":["1","2","0","3","−1"],"ans":2,"ex":["좌극한 = 2+1 = 3, 우극한 = 2a+3","3 = 2a+3 → a = 0"]},
+    {"unitId":"derivative","type":"mc","diff":1,"level":"하","q":"f(x) = x⁴ − 2x² 일 때 f′(1) 의 값은?","opts":["2","−2","0","4","1"],"ans":2,"ex":["f′(x) = 4x³ − 4x","f′(1) = 4 − 4 = 0"]},
+    {"unitId":"deriv_app","type":"mc","diff":1,"level":"하","q":"f(x) = x³ − 3x + 2 의 극솟값은?","opts":["0","2","−2","4","1"],"ans":0,"ex":["f′(x) = 3x² − 3 = 3(x−1)(x+1)","x=1 에서 극소","f(1) = 1 − 3 + 2 = 0"]},
+    {"unitId":"integral","type":"mc","diff":1,"level":"하","q":"∫ (x=0→1) (3x²+1) dx 의 값은?","opts":["3","1","4","2","5"],"ans":3,"ex":["∫(3x²+1)dx = x³ + x","[x³+x]₀¹ = 1+1 = 2"]},
+    {"unitId":"exp_log","type":"mc","diff":2,"level":"중","q":"방정식 log₂(x+1) − log₂x = 3 을 만족하는 x 의 값은?","opts":["1/8","1/7","7","1/6","2/7"],"ans":1,"ex":["log₂{(x+1)/x} = 3 → (x+1)/x = 8","x + 1 = 8x → x = 1/7 (진수조건 만족)"]},
+    {"unitId":"exp_func","type":"mc","diff":2,"level":"중","q":"방정식 4ˣ = 8 을 만족하는 x 의 값은?","opts":["2","4/3","3","3/2","1/2"],"ans":3,"ex":["4ˣ = 2²ˣ = 8 = 2³","2x = 3 → x = 3/2"]},
+    {"unitId":"trig","type":"mc","diff":2,"level":"중","q":"sinθ + cosθ = 1/2 일 때 sinθcosθ 의 값은?","opts":["3/8","−1/4","−3/8","1/4","−1/2"],"ans":2,"ex":["(sinθ+cosθ)² = 1 + 2sinθcosθ = 1/4","2sinθcosθ = −3/4 → sinθcosθ = −3/8"]},
+    {"unitId":"trig_app","type":"mc","diff":2,"level":"중","q":"삼각형 ABC 에서 a=√43, b=6, c=7 일 때 ∠A 의 크기는?","opts":["30°","45°","60°","90°","120°"],"ans":2,"ex":["cosA = (b²+c²−a²)/(2bc) = (36+49−43)/(2·6·7)","= 42/84 = 1/2 → ∠A = 60°"]},
+    {"unitId":"sequence","type":"mc","diff":2,"level":"중","q":"Σ (k=1→5) (3k² − 2k) 의 값은?","opts":["130","135","140","125","145"],"ans":1,"ex":["Σ(3k²−2k) = 3Σk² − 2Σk","= 3·55 − 2·15 = 165 − 30 = 135"]},
+    {"unitId":"limit","type":"mc","diff":2,"level":"중","q":"lim (x→0) (x²+2x)/(sin2x) 의 값은?","opts":["2","1/2","1","0","4"],"ans":2,"ex":["x→0 일 때 sin2x ≈ 2x 이므로","(x²+2x)/(2x) = (x+2)/2 → 1"]},
+    {"unitId":"continuity","type":"mc","diff":2,"level":"중","q":"f(x) = {(x²−4)/(x−2) (x≠2), k (x=2)} 가 x=2 에서 연속일 때 상수 k 의 값은?","opts":["1","3","0","4","2"],"ans":3,"ex":["lim (x→2) (x²−4)/(x−2) = lim (x+2) = 4","연속의 정의에 의해 k = 4"]},
+    {"unitId":"derivative","type":"mc","diff":2,"level":"중","q":"f(x) = x² 일 때 lim (h→0) {f(1+h) − f(1−h)}/h 의 값은?","opts":["2","4","1","6","8"],"ans":1,"ex":["f(1+h) − f(1−h) = (1+h)² − (1−h)² = 4h","4h/h = 4"]},
+    {"unitId":"deriv_app","type":"mc","diff":2,"level":"중","q":"f(x) = x³ − 6x² + 9x + 1 의 극댓값은?","opts":["1","3","5","9","7"],"ans":2,"ex":["f′(x) = 3x² − 12x + 9 = 3(x−1)(x−3)","x=1 에서 극대","f(1) = 1 − 6 + 9 + 1 = 5"]},
+    {"unitId":"integral","type":"mc","diff":2,"level":"중","q":"∫ (x=1→2) (x²+1)/x² dx 의 값은?","opts":["1","2","5/2","3/2","1/2"],"ans":3,"ex":["(x²+1)/x² = 1 + 1/x²","[x − 1/x]₁² = (2−1/2) − (1−1) = 3/2"]},
+    {"unitId":"exp_log","type":"mc","diff":3,"level":"상","q":"log₂3 = a 일 때 log₂12 를 a 로 나타낸 것은?","opts":["2a","2+a","1+a","2−a","3a"],"ans":1,"ex":["log₂12 = log₂(4·3) = log₂4 + log₂3","= 2 + a"]},
+    {"unitId":"exp_func","type":"mc","diff":3,"level":"상","q":"부등식 (1/2)ˣ > 8 의 해는?","opts":["x>−3","x<3","x<−3","x>3","x<−2"],"ans":2,"ex":["(1/2)ˣ = 2⁻ˣ, 8 = 2³","밑 2>1 이므로 −x > 3 → x < −3"]},
+    {"unitId":"trig","type":"mc","diff":3,"level":"상","q":"tanθ = 2 (θ 는 제1사분면의 각) 일 때 sinθ + 2cosθ 의 값은?","opts":["2/√5","6/√5","√5","4/√5","3/√5"],"ans":3,"ex":["tanθ=2 → sinθ=2/√5, cosθ=1/√5","sinθ + 2cosθ = 2/√5 + 2/√5 = 4/√5"]},
+    {"unitId":"trig_app","type":"mc","diff":3,"level":"상","q":"삼각형 ABC 에서 b=5, c=6, ∠A=30° 일 때 삼각형의 넓이는?","opts":["15","30","10","15/2","7"],"ans":3,"ex":["S = ½·b·c·sinA = ½·5·6·(1/2)","= 15/2"]},
+    {"unitId":"sequence","type":"mc","diff":3,"level":"상","q":"수열 1, 3, 5, 7, … 에서 첫째항부터 제10항까지의 합은?","opts":["90","100","110","81","121"],"ans":1,"ex":["일반항 aₙ = 2n−1","Σ(2n−1) = 2·(10·11/2) − 10 = 110 − 10 = 100"]},
+    {"unitId":"limit","type":"mc","diff":3,"level":"상","q":"lim (x→∞) (√(x²+3x) − x) 의 값은?","opts":["3","1","3/2","2","0"],"ans":2,"ex":["분자 유리화: 3x/(√(x²+3x)+x)","x 로 나누면 3/(√(1+3/x)+1) → 3/2"]},
+    {"unitId":"continuity","type":"mc","diff":3,"level":"상","q":"f(x) = {2x+1 (x<2), x²+1 (2≤x<4), ax+b (x≥4)} 가 실수 전체에서 연속이고 f(5)=22 일 때 a+b 의 값은? (a, b 는 상수)","opts":["1","3","5","2","−2"],"ans":3,"ex":["x=2: 2·2+1 = 5, 2²+1 = 5 (연속 성립)","x=4: 4a+b = 17, f(5): 5a+b = 22","a=5, b=−3 → a+b = 2"]},
+    {"unitId":"derivative","type":"mc","diff":3,"level":"상","q":"f(x) = x³ − 3x 일 때 lim (h→0) {f(1+2h) − f(1)}/h 의 값은?","opts":["6","2","0","1","−1"],"ans":2,"ex":["주어진 극한 = 2f′(1)","f′(x) = 3x²−3 → f′(1) = 0 → 정답 0"]},
+    {"unitId":"deriv_app","type":"mc","diff":3,"level":"상","q":"f(x) = x³ + ax² + 1 이 x=1 에서 극솟값을 가질 때 상수 a 의 값은?","opts":["−1","−3/2","3/2","−2","2"],"ans":1,"ex":["f′(x) = 3x² + 2ax, f′(1) = 3+2a = 0","a = −3/2 (f″(1) = 6+2a = 3 > 0 이므로 극소)"]},
+    {"unitId":"integral","type":"mc","diff":3,"level":"상","q":"∫ (x=0→2) |x−1| dx 의 값은?","opts":["2","0","1","3","1/2"],"ans":2,"ex":["[0,1] 에서 |x−1| = 1−x, [1,2] 에서 = x−1","∫₀¹(1−x)dx + ∫₁²(x−1)dx = 1/2 + 1/2 = 1"]},
+    {"unitId":"exp_log","type":"mc","diff":4,"level":"킬러","q":"양수 x, y 에 대하여 2ˣ = 3ʸ = 6 일 때, 1/x + 1/y 의 값은?","opts":["1/2","1","3/2","2","1/6"],"ans":1,"ex":["x = log₂6, y = log₃6 이므로 1/x = log₆2, 1/y = log₆3","1/x + 1/y = log₆2 + log₆3 = log₆6 = 1"]},
+    {"unitId":"exp_func","type":"mc","diff":4,"level":"킬러","q":"함수 f(x) = 2ˣ⁻¹ + 1 의 역함수를 g(x) 라 할 때, g(5) + g(3) 의 값은?","opts":["4","5","6","7","8"],"ans":1,"ex":["f(x)=5 → 2ˣ⁻¹ = 4 → x = 3, 즉 g(5) = 3","f(x)=3 → 2ˣ⁻¹ = 2 → x = 2, 즉 g(3) = 2","g(5)+g(3) = 3+2 = 5"]},
+    {"unitId":"trig","type":"mc","diff":4,"level":"킬러","q":"0 ≤ x < 2π 에서 방정식 (tan²x − tanx − 2)(sinx − 1/2) = 0 의 서로 다른 실근의 개수는?","opts":["4","5","6","7","8"],"ans":2,"ex":["tan²x − tanx − 2 = (tanx−2)(tanx+1) = 0 → tanx = 2 또는 −1","tanx=2: 2개, tanx=−1: 2개 (0≤x<2π, tan 의 주기가 π 이므로)","sinx = 1/2 → x = π/6, 5π/6 (2개) · 겹치는 해 없음 → 총 6개"]},
+    {"unitId":"trig_app","type":"mc","diff":4,"level":"킬러","q":"삼각형 ABC 에서 ∠A = 60°, a = √13, b + c = 7 일 때, 삼각형 ABC 의 넓이는?","opts":["2√3","3√3","4√3","6√3","3√3/2"],"ans":1,"ex":["코사인법칙: 13 = b²+c²−bc = (b+c)²−3bc = 49−3bc","bc = 12","S = ½·bc·sin60° = ½·12·(√3/2) = 3√3"]},
+    {"unitId":"sequence","type":"mc","diff":4,"level":"킬러","q":"수열 {aₙ} 이 a₁ = 1, aₙ₊₁ = 3aₙ + 2ⁿ (n ≥ 1) 을 만족할 때, a₅ 의 값은?","opts":["160","189","211","225","243"],"ans":2,"ex":["a₂ = 3·1+2 = 5, a₃ = 3·5+2² = 19, a₄ = 3·19+2³ = 65","a₅ = 3·65+2⁴ = 211"]},
+    {"unitId":"limit","type":"mc","diff":4,"level":"킬러","q":"lim (x→0) (1−cos4x)/(x·sin2x) 의 값은?","opts":["2","4","1","6","8"],"ans":1,"ex":["1−cos4x = 2sin²2x (반각공식)","원식 = 2sin²2x/(x·sin2x) = 2sin2x/x","lim 2sin2x/x = 2·2 = 4"]},
+    {"unitId":"continuity","type":"mc","diff":4,"level":"킬러","q":"f(x) = {x²+ax+b (x<1), x³+c (1≤x≤2), dx+3 (x>2)} 이 실수 전체에서 연속이고 x=1, x=2 에서 미분가능할 때, a+b+c+d 의 값은? (a, b, c, d 는 상수)","opts":["44","47","50","53","56"],"ans":2,"ex":["x=1: 연속 → 1+a+b = 1+c → a+b = c, 미분가능 → 2+a = 3 → a = 1","x=2: 연속 → 8+c = 2d+3, 미분가능 → 12 = d → d = 12","c = 19, b = 18 → a+b+c+d = 1+18+19+12 = 50"]},
+    {"unitId":"derivative","type":"mc","diff":4,"level":"킬러","q":"f(x) = x³ + ax (a 는 상수) 에 대하여 lim (h→0) {f(2+3h) − f(2−h)}/h = 52 일 때, 상수 a 의 값은?","opts":["−1","0","1","2","3"],"ans":2,"ex":["주어진 극한 = 3f′(2) + f′(2) = 4f′(2) (미분계수의 정의)","4f′(2) = 52 → f′(2) = 13","f′(x) = 3x²+a → 12+a = 13 → a = 1"]},
+    {"unitId":"deriv_app","type":"mc","diff":4,"level":"킬러","q":"삼차함수 f(x) = x³ − 3px² + 3qx (p, q 는 상수) 가 x=1 에서 극대, x=2 에서 극소일 때, 극솟값은?","opts":["0","1","2","3","4"],"ans":2,"ex":["f′(x) = 3x²−6px+3q 의 두 근이 1, 2","1+2 = 2p → p = 3/2, 1·2 = q → q = 2","f(x) = x³ − (9/2)x² + 6x → 극솟값 f(2) = 8−18+12 = 2"]},
+    {"unitId":"integral","type":"mc","diff":4,"level":"킬러","q":"∫ (x=0→2) |x²−2x| dx 의 값은?","opts":["2/3","1","4/3","5/3","2"],"ans":2,"ex":["x²−2x = x(x−2) ≤ 0 (0 ≤ x ≤ 2)","∫₀²|x²−2x|dx = ∫₀²(2x−x²)dx","= [x² − x³/3]₀² = 4 − 8/3 = 4/3"]},
+
+    /* ============ 서술형 7문항 ============ */
+    {unitId:'exp_log', type:'sub', diff:2, q:'방정식 log₂x + log₂(x−2) = 3 을 만족하는 x의 값을 풀이 과정과 함께 구하시오.',
+      answer:'4',
+      ex:['log₂{x(x−2)} = 3 → x(x−2) = 8','x²−2x−8 = 0 → (x−4)(x+2) = 0','진수조건 x>2 이므로 x = 4'],
+      kw:['로그 성질','진수조건','이차방정식']},
+    {unitId:'trig_app', type:'sub', diff:2, q:'삼각형 ABC에서 ∠A=60°, b=8, c=5 일 때 변 a의 길이를 구하시오. (코사인법칙을 사용하시오)',
+      answer:'7',
+      ex:['a² = b²+c²−2bc·cosA = 64+25−2·8·5·(1/2)','= 89−40 = 49','a > 0 이므로 a = 7'],
+      kw:['코사인법칙','cos60°=1/2','a=7']},
+    {unitId:'sequence', type:'sub', diff:2, q:'첫째항이 2, 공비가 3인 등비수열의 첫째항부터 제5항까지의 합을 구하시오.',
+      answer:'242',
+      ex:['S₅ = 2(3⁵−1)/(3−1)','= 2·242/2 = 242'],
+      kw:['등비수열 합 공식','3⁵=243','242']},
+    {unitId:'limit', type:'sub', diff:2, q:'lim (x→1) (x²−3x+2)/(x²−1) 의 값을 구하시오.',
+      answer:'−1/2',
+      ex:['(x−1)(x−2)/{(x−1)(x+1)} = (x−2)/(x+1)','x=1 대입 → −1/2'],
+      kw:['인수분해','약분','−1/2']},
+    {unitId:'continuity', type:'sub', diff:2, q:'f(x) = {(x²−4)/(x−2) (x≠2), k (x=2)} 가 x=2에서 연속일 때 상수 k의 값을 구하시오.',
+      answer:'4',
+      ex:['lim (x→2) (x²−4)/(x−2) = lim (x+2) = 4','연속의 정의: 극한값 = 함숫값 → k = 4'],
+      kw:['극한값','연속의 정의','k=4']},
+    {unitId:'deriv_app', type:'sub', diff:3, q:'f(x) = x³ − 3x² + 2 의 극댓값과 극솟값을 각각 구하시오.',
+      answer:'극댓값 2, 극솟값 −2',
+      ex:['f′(x) = 3x²−6x = 3x(x−2) → x=0, 2','부호: x<0:+ , 0<x<2:− , x>2:+','x=0 극대 f(0)=2, x=2 극소 f(2)=−2'],
+      kw:['도함수','부호판정','극대 2','극소 −2']},
+    {unitId:'integral', type:'sub', diff:3, q:'곡선 y = x² − 4x 와 x축으로 둘러싸인 도형의 넓이를 구하시오.',
+      answer:'32/3',
+      ex:['x절편: x=0, 4','넓이 = ∫₀⁴(4x−x²)dx = [2x²−x³/3]₀⁴','= 32 − 64/3 = 32/3'],
+      kw:['x절편','정적분','32/3']},
+    {"unitId":"deriv_app","type":"sub","diff":4,"level":"킬러","q":"곡선 y = x³−3x 위의 점 (1,−2) 에서의 접선과 곡선으로 둘러싸인 도형의 넓이를 구하는 풀이 과정을 서술하시오.","answer":"27/4","ex":["f′(x) = 3x²−3 → f′(1) = 0","접선의 방정식: y = −2","x³−3x = −2 → x³−3x+2 = (x−1)²(x+2) = 0 → x = −2, 1","넓이 = ∫₋₂¹ (x³−3x+2)dx = [x⁴/4 − 3x²/2 + 2x]₋₂¹ = 27/4"],"kw":["접선","인수분해","정적분"]},
+    {"unitId":"sequence","type":"sub","diff":4,"level":"킬러","q":"수열 {aₙ} 이 a₁=1, aₙ₊₁ = 2aₙ + 1 을 만족할 때 일반항 aₙ 을 구하고, Σ (k=1→7) aₖ 의 값을 구하시오.","answer":"aₙ = 2ⁿ − 1, 합 247","ex":["aₙ₊₁ + 1 = 2(aₙ+1) → bₙ = aₙ+1 은 공비 2, b₁ = 2","bₙ = 2·2ⁿ⁻¹ = 2ⁿ → aₙ = 2ⁿ − 1","Σ(k=1~7)(2ⁿ−1) = (2⁸−2) − 7 = 254 − 7 = 247"],"kw":["점화식","등비수열 변형","시그마"]},
+    {"unitId":"trig_app","type":"sub","diff":4,"level":"킬러","q":"삼각형 ABC 에서 b=8, c=5 이고 넓이가 10√3 이다. ∠A 가 예각일 때 변 a 의 길이를 구하는 풀이 과정을 서술하시오.","answer":"7","ex":["S = ½·bc·sinA = 20sinA = 10√3 → sinA = √3/2","∠A 가 예각이므로 ∠A = 60°","a² = b²+c²−2bc·cosA = 64+25−80·(1/2) = 49 → a = 7"],"kw":["삼각형의 넓이","코사인법칙","a = 7"]},
+    {"unitId":"limit","type":"sub","diff":4,"level":"킬러","q":"lim (x→0) {√(1+sin2x) − √(1−sin2x)}/sin3x 의 값을 구하는 풀이 과정을 서술하시오.","answer":"2/3","ex":["분자 유리화: (2sin2x)/(√(1+sin2x)+√(1−sin2x))","x→0 일 때 분모 → 2 이므로 원식 → sin2x/sin3x","sin2x/sin3x → 2x/3x = 2/3"],"kw":["유리화","삼각함수의 극한","sinx/x → 1"]},
+    {"unitId":"deriv_app","type":"sub","diff":4,"level":"킬러","q":"실수 전체에서 정의된 함수 f(x) = x³ − 3x² + a (a 는 상수) 의 극댓값이 4 일 때, 상수 a 와 극솟값을 구하는 풀이 과정을 서술하시오.","answer":"a = 4, 극솟값 0","ex":["f′(x) = 3x²−6x = 3x(x−2) → x=0 에서 극대, x=2 에서 극소","극댓값 f(0) = a = 4","극솟값 f(2) = 8−12+4 = 0"],"kw":["도함수","미정계수","극대·극소"]},
+    {"unitId":"exp_log","type":"sub","diff":4,"level":"킬러","q":"방정식 2^(2x+1) − 7·2ˣ + 6 = 0 의 모든 실근의 합을 구하는 풀이 과정을 서술하시오.","answer":"log₂3 (≈ 1.585)","ex":["t = 2ˣ (t > 0) 로 치환 → 2t² − 7t + 6 = 0","(2t−3)(t−2) = 0 → t = 3/2 또는 2","x = log₂(3/2), x = 1 → 합 = 1 + log₂(3/2) = log₂3"],"kw":["치환","이차방정식","로그의 정의"]},
+    {"unitId":"continuity","type":"sub","diff":4,"level":"킬러","q":"다항함수 f(x) 가 f(0) = 0, f(1) = 0 이고 lim (x→0) f(x)/x = 2, lim (x→1) f(x)/(x−1) = 3 을 만족할 때, f(x) 를 구하고 f′(0) + f′(1) 의 값을 구하는 풀이 과정을 서술하시오.","answer":"f(x) = 5x³−7x²+2x, 합 = 5","ex":["f(0)=f(1)=0 → f(x) = x(x−1)(ax+b) 로 둔다","lim(x→0) f(x)/x = −b = 2 → b = −2, lim(x→1) f(x)/(x−1) = a+b = 3 → a = 5","f(x) = x(x−1)(5x−2) = 5x³−7x²+2x, f′(0)=2, f′(1)=3 → 합 5"],"kw":["미분계수의 정의","인수분해","미정계수"]},
+    {"unitId":"integral","type":"sub","diff":4,"level":"킬러","q":"f(x) = x³ + kx + 2 이고 ∫ (x=0→1) f(x)dx = k 를 만족할 때, 상수 k 의 값을 구하는 풀이 과정을 서술하시오.","answer":"9/2","ex":["∫₀¹(x³+kx+2)dx = [x⁴/4 + kx²/2 + 2x]₀¹ = 1/4 + k/2 + 2","1/4 + k/2 + 2 = k → k/2 = 9/4","k = 9/2"],"kw":["정적분","미정계수"]},
+
+    /* ============ 단원 종합문제 (오지선다 10 + 서술형 3) ============ */
+    {"unitId":"final","type":"mc","diff":3,"level":"상","q":"공비가 2 인 등비수열 {aₙ} 에서 a₁ = 2 일 때, log₂(a₂a₄a₆) 의 값은?","opts":["10","12","14","16","18"],"ans":1,"ex":["a₂ = 4, a₄ = 16, a₆ = 64 (공비 2)","a₂a₄a₆ = 2²·2⁴·2⁶ = 2¹²","log₂2¹² = 12"]},
+    {"unitId":"final","type":"mc","diff":3,"level":"상","q":"lim (x→0) (sin2x·tan3x)/x² 의 값은?","opts":["2","3","6","9","12"],"ans":2,"ex":["sin2x/x → 2, tan3x/x → 3 (x→0)","(sin2x/x)·(tan3x/x) → 2·3 = 6"]},
+    {"unitId":"final","type":"mc","diff":2,"level":"중","q":"f(x) = x³ − 3x² + 2 일 때 ∫ (x=1→2) f′(x)dx 의 값은?","opts":["−3","−2","−1","0","2"],"ans":1,"ex":["미적분학의 기본정리: ∫₁²f′(x)dx = f(2) − f(1)","f(2) = 8−12+2 = −2, f(1) = 1−3+2 = 0","−2 − 0 = −2"]},
+    {"unitId":"final","type":"mc","diff":4,"level":"킬러","q":"lim (n→∞) (2ⁿ⁺¹ + 3ⁿ)/(2ⁿ + 3ⁿ⁺¹) 의 값은?","opts":["0","1/3","1/2","2/3","1"],"ans":1,"ex":["분모·분자를 3ⁿ 으로 나눈다","(2·(2/3)ⁿ + 1)/((2/3)ⁿ + 3)","n→∞ 에서 (2/3)ⁿ → 0 → 1/3"]},
+    {"unitId":"final","type":"mc","diff":3,"level":"상","q":"함수 f(x) = 2ˣ⁻¹ + 1 의 역함수를 g(x) 라 할 때, (g∘f)(3) + (f∘g)(5) 의 값은?","opts":["6","7","8","9","10"],"ans":2,"ex":["f(3) = 2²+1 = 5, g(5) = 3","(g∘f)(3) = g(5) = 3, (f∘g)(5) = f(3) = 5","3 + 5 = 8"]},
+    {"unitId":"final","type":"mc","diff":3,"level":"상","q":"f(x) = x² + ax + b 가 ∫ (x=0→2) f(x)dx = 20/3, f(1) = 3 을 만족할 때, a + b 의 값은? (a, b 는 상수)","opts":["0","1","2","3","4"],"ans":2,"ex":["f(1) = 1+a+b = 3 → a+b = 2","∫₀²(x²+ax+b)dx = 8/3 + 2a + 2b = 8/3 + 2(a+b)","8/3 + 2(a+b) = 20/3 → a+b = 2 (일관성 확인)"]},
+    {"unitId":"final","type":"mc","diff":4,"level":"킬러","q":"0 ≤ x < 2π 에서 방정식 sin²x·cosx − sinx·cos²x = 0 의 서로 다른 실근의 개수는?","opts":["4","5","6","7","8"],"ans":2,"ex":["sinx·cosx(sinx − cosx) = 0","sinx=0: 2개, cosx=0: 2개, sinx=cosx: 2개","겹치는 해가 없으므로 총 6개"]},
+    {"unitId":"final","type":"mc","diff":2,"level":"중","q":"부등식 log₂(x+6) ≤ 4 를 만족하는 자연수 x 의 개수는?","opts":["8","9","10","11","12"],"ans":2,"ex":["진수조건: x+6 > 0 → x > −6","log₂(x+6) ≤ 4 → x+6 ≤ 16 → x ≤ 10","자연수 1, 2, …, 10 → 10개"]},
+    {"unitId":"final","type":"mc","diff":4,"level":"킬러","q":"삼각형 ABC 에서 ∠A = 60°, b + c = 6, a = √12 일 때, 삼각형 ABC 의 넓이는?","opts":["√3","2√3","3√3","4√3","6"],"ans":1,"ex":["코사인법칙: 12 = b²+c²−bc = (b+c)²−3bc = 36−3bc","bc = 8","S = ½·8·sin60° = ½·8·(√3/2) = 2√3"]},
+    {"unitId":"final","type":"mc","diff":2,"level":"중","q":"f(1) = 2 이고 f′(1) = 4 일 때, 곡선 y = f(x) 위의 점 (1, 2) 에서의 접선이 x 축과 만나는 점의 x 좌표는?","opts":["−1/2","0","1/4","1/2","1"],"ans":3,"ex":["접선의 방정식: y − 2 = 4(x−1) → y = 4x − 2","y = 0 → 4x − 2 = 0 → x = 1/2"]},
+    {"unitId":"final","type":"mc","diff":1,"level":"하","q":"log₂8 + log₃9 의 값은?","opts":["4","5","6","3","7"],"ans":1,"ex":["log₂8 = 3, log₃9 = 2","3 + 2 = 5"]},
+    {"unitId":"final","type":"mc","diff":1,"level":"하","q":"첫째항이 3, 공차가 2 인 등차수열 {aₙ} 의 제5항 a₅ 의 값은?","opts":["9","11","13","15","17"],"ans":1,"ex":["aₙ = a₁ + (n−1)d","a₅ = 3 + 4·2 = 11"]},
+    {"unitId":"final","type":"mc","diff":1,"level":"하","q":"f(x) = x² 일 때, f′(3) 의 값은?","opts":["3","6","9","12","27"],"ans":1,"ex":["f′(x) = 2x","f′(3) = 3·2 = 6"]},
+    {"unitId":"final","type":"mc","diff":1,"level":"하","q":"lim (x→2) (x²−4)/(x−2) 의 값은?","opts":["4","2","0","1","8"],"ans":0,"ex":["x²−4 = (x−2)(x+2)","(x−2)(x+2)/(x−2) = x+2 → 2+2 = 4"]},
+    {"unitId":"final","type":"mc","diff":1,"level":"하","q":"sin 30° + cos 60° 의 값은?","opts":["1/2","√3/2","1","√2/2","3/2"],"ans":2,"ex":["sin 30° = 1/2, cos 60° = 1/2","1/2 + 1/2 = 1"]},
+    {"unitId":"final","type":"sub","diff":1,"level":"하","q":"첫째항이 2, 공차가 3 인 등차수열 {aₙ} 에 대하여 a₁₀ 과 S₅ 를 구하는 풀이 과정을 서술하시오.","answer":"a₁₀ = 29, S₅ = 40","ex":["aₙ = a₁ + (n−1)d = 2 + 3(n−1) = 3n − 1","a₁₀ = 2 + 9·3 = 29, a₅ = 2 + 4·3 = 14","S₅ = 5(2+14)/2 = 40"],"kw":["등차수열","일반항","합"]},
+    {"unitId":"final","type":"sub","diff":4,"level":"킬러","q":"첫째항이 a₁, 공차가 d 인 등차수열 {aₙ} 에서 a₂ + a₅ = 20, a₃ + a₇ = 30 일 때, 일반항 aₙ 과 첫째항부터 제 n 항까지의 합 Sₙ 을 구하는 풀이 과정을 서술하시오.","answer":"aₙ = (10n−5)/3, Sₙ = 5n²/3","ex":["(a₁+d)+(a₁+4d) = 2a₁+5d = 20, (a₁+2d)+(a₁+6d) = 2a₁+8d = 30","두 식을 빼면 3d = 10 → d = 10/3, a₁ = 5/3","aₙ = (10n−5)/3, Sₙ = n(a₁+aₙ)/2 = 5n²/3"],"kw":["등차수열","연립방정식","일반항","합"]},
+    {"unitId":"final","type":"sub","diff":3,"level":"상","q":"곡선 y = x² 과 직선 y = 2x + 3 으로 둘러싸인 도형의 넓이를 구하는 풀이 과정을 서술하시오.","answer":"32/3","ex":["x² = 2x+3 → x²−2x−3 = 0 → x = −1, 3","−1 ≤ x ≤ 3 에서 직선 y = 2x+3 이 곡선보다 위","넓이 = ∫₋₁³(2x+3−x²)dx = [x²+3x−x³/3]₋₁³ = 32/3"],"kw":["교점","정적분","넓이"]},
+    {"unitId":"final","type":"sub","diff":4,"level":"킬러","q":"두 실수 x, y 가 2ˣ⁺ʸ = 128, 3ˣ⁻ʸ = 1/9 를 만족할 때, x, y 를 구하고 2ˣ + 2ʸ 의 값을 구하는 풀이 과정을 서술하시오.","answer":"x = 5/2, y = 9/2, 2ˣ+2ʸ = 20√2","ex":["2ˣ⁺ʸ = 2⁷ → x+y = 7, 3ˣ⁻ʸ = 3⁻² → x−y = −2","연립하면 x = 5/2, y = 9/2","2^(5/2) + 2^(9/2) = 4√2 + 16√2 = 20√2"],"kw":["지수법칙","연립방정식","근호"]}
+  ];
+
+  g.UNITS = UNITS;
+  g.PROBLEMS = PROBLEMS;
+  })(typeof window!=='undefined'?window:globalThis);
+  </script>
+<script>
+(function(){
+'use strict';
+const g = (typeof window!=='undefined')?window:globalThis;
+const $ = id => document.getElementById(id);
+const UNITS = g.UNITS, PROBLEMS = g.PROBLEMS;
+const LS_KEY = 'mathStudy.fixed.v1';
+const SUBJECT_ORDER = ['대수','미적분Ⅰ','종합'];
+const DIFF_LABELS = ['하','중','상','킬러'];
+const CIRC = ['①','②','③','④','⑤'];
+
+let state = load();
+let unitId = UNITS[0].id;
+let diffFilter = 0;    // 0=전체, 1/2/3
+let typeFilter = 0;    // 0=전체, 1=오지선다, 2=서술형
+let currentIdx = 0;
+
+function load(){
+  try { const raw = localStorage.getItem(LS_KEY); if(raw) return JSON.parse(raw); } catch(e){}
+  return { total:0, correct:0, history:[], unitStats:{} };
+}
+function save(){ try { localStorage.setItem(LS_KEY, JSON.stringify(state)); } catch(e){} }
+function unitById(id){ return UNITS.find(u=>u.id===id) || UNITS[0]; }
+function accOf(id){ return state.unitStats[id] || {tries:0, correct:0, byIdx:{}}; }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+
+function getFiltered(){
+  let list = PROBLEMS.map((p,i)=>({...p, _origIdx:i})).filter(p=>p.unitId===unitId);
+  if(typeFilter) list = list.filter(p=>p.type===(typeFilter===1?'mc':'sub'));
+  if(diffFilter) list = list.filter(p=>p.diff===diffFilter);
+  return list;
+}
+
+function renderUnits(){
+  const wrap = $('unitList'); wrap.innerHTML = '';
+  SUBJECT_ORDER.forEach(sub=>{
+    const us = UNITS.filter(u=>u.subject===sub);
+    if(!us.length) return;
+    const h = document.createElement('div'); h.className='subject-h'; h.textContent = sub; wrap.appendChild(h);
+    us.forEach(u=>{
+      const b = document.createElement('button');
+      b.className = 'unit-btn' + (u.id===unitId ? ' active' : '');
+      b.textContent = u.name;
+      b.onclick = ()=>selectUnit(u.id);
+      wrap.appendChild(b);
+    });
+  });
+}
+
+function selectUnit(id){
+  unitId = id; currentIdx = 0;
+  renderUnits(); renderConcept(); renderFilter(); renderBank(); renderStats(); renderNote();
+}
+
+function renderConcept(){
+  const u = unitById(unitId);
+  $('heroTitle').textContent = u.name;
+  const cs = $('conceptSummary'); if(cs) cs.innerHTML = u.summary.map(s=>'<li>'+s+'</li>').join('');
+  const all = PROBLEMS.filter(p=>p.unitId===unitId);
+  const mc = all.filter(p=>p.type==='mc').length;
+  const sub = all.filter(p=>p.type==='sub').length;
+  $('bankMeta').innerHTML = '이 단원 <strong>'+all.length+'문항</strong> · 오지선다 <span class="badge t-mc">'+mc+'</span> · 서술형 <span class="badge t-sub">'+sub+'</span>';
+}
+
+function renderFilter(){
+  const wrap = $('diffFilter'); wrap.innerHTML = '';
+  const row1 = document.createElement('div'); row1.style.cssText='display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;';
+  const mkType = (label, val)=>{
+    const b=document.createElement('button');
+    b.className='filter-btn'+(typeFilter===val?' active':'');
+    b.textContent=label;
+    b.onclick=()=>{ typeFilter=val; currentIdx=0; renderFilter(); renderBank(); };
+    row1.appendChild(b);
+  };
+  mkType('전체 유형',0); mkType('오지선다',1); mkType('서술형',2);
+  wrap.appendChild(row1);
+
+  const row2 = document.createElement('div'); row2.style.cssText='display:flex;gap:8px;flex-wrap:wrap;';
+  const mkDiff = (label, val)=>{
+    const b=document.createElement('button');
+    b.className='filter-btn'+(diffFilter===val?' active':'');
+    b.textContent=label;
+    b.onclick=()=>{ diffFilter=val; currentIdx=0; renderFilter(); renderBank(); };
+    row2.appendChild(b);
+  };
+  const base = PROBLEMS.filter(p=>p.unitId===unitId && (!typeFilter || p.type===(typeFilter===1?'mc':'sub')));
+  mkDiff('전체 난이도 ('+base.length+')', 0);
+  DIFF_LABELS.forEach((l,i)=>{
+    const cnt = base.filter(p=>p.diff===i+1).length;
+    if(cnt>0) mkDiff(l+' ('+cnt+')', i+1);
+  });
+  wrap.appendChild(row2);
+}
+
+function renderBank(){
+  const wrap = $('bankList'); wrap.innerHTML = '';
+  const list = getFiltered();
+  if(!list.length){ wrap.innerHTML='<p style="padding:20px;color:var(--sub);">이 조건의 문항이 없어요.</p>'; return; }
+  if(currentIdx<0) currentIdx=0;
+  if(currentIdx>=list.length) currentIdx=list.length-1;
+  const q = list[currentIdx];
+
+  const card = document.createElement('div'); card.className='card probpg';
+
+  const meta = document.createElement('div'); meta.className='probpg-meta';
+  meta.innerHTML =
+    '<span class="badge d'+q.diff+'">'+DIFF_LABELS[q.diff-1]+'</span>' +
+    '<span class="badge '+(q.type==='mc'?'t-mc':'t-sub')+'">'+(q.type==='mc'?'오지선다':'서술형')+'</span>' +
+    '<span class="q-pager-info"><strong>'+(currentIdx+1)+'</strong> / '+list.length+'</span>';
+  card.appendChild(meta);
+
+  const prog = document.createElement('div'); prog.className='probpg-progress';
+  const acc = accOf(q.unitId);
+  list.forEach((it,i)=>{
+    const dot = document.createElement('div'); dot.className='dot';
+    if(acc.byIdx && acc.byIdx[it._origIdx]==='done') dot.classList.add('done');
+    else if(acc.byIdx && acc.byIdx[it._origIdx]==='wrong') dot.classList.add('wrong');
+    prog.appendChild(dot);
+  });
+  card.appendChild(prog);
+
+  const qbox = document.createElement('div'); qbox.className='probpg-q';
+  qbox.textContent = q.q;
+  card.appendChild(qbox);
+
+  if(q.type==='mc'){
+    const optsBox = document.createElement('div'); optsBox.className='probpg-opts'; optsBox.id='optsBox';
+    (q.opts||[]).forEach((o,oi)=>{
+      const opt = document.createElement('div');
+      opt.className='probpg-opt'; opt.dataset.i = oi;
+      opt.innerHTML='<strong>'+CIRC[oi]+'</strong>  '+o;
+      opt.onclick=()=>{
+        optsBox.querySelectorAll('.probpg-opt').forEach(x=>x.classList.remove('sel'));
+        opt.classList.add('sel');
+        const cb=$('checkBtn'); if(cb) cb.disabled=false;
+      };
+      optsBox.appendChild(opt);
+    });
+    card.appendChild(optsBox);
+  } else {
+    const inp = document.createElement('textarea');
+    inp.id='ansInput'; inp.placeholder='답을 여기에 직접 써 보세요. (예: 4, 7, 32/3, −1/2 …)';
+    inp.oninput=()=>{ const cb=$('checkBtn'); if(cb) cb.disabled = inp.value.trim()===''; };
+    card.appendChild(inp);
+  }
+
+  const result = document.createElement('div'); result.id='resultBox'; result.style.display='none';
+  card.appendChild(result);
+
+  const actions = document.createElement('div'); actions.className='probpg-actions';
+  const checkBtn = document.createElement('button'); checkBtn.className='primary'; checkBtn.id='checkBtn'; checkBtn.textContent='채점하기'; checkBtn.disabled=true;
+  checkBtn.onclick = ()=>grade(q, list);
+  const solBtn = document.createElement('button'); solBtn.className='secondary'; solBtn.textContent='해설 보기';
+  solBtn.onclick=()=>{
+    const sb=$('solBox'); if(!sb) return;
+    const open = sb.style.display==='none';
+    sb.style.display = open?'block':'none';
+    solBtn.textContent = open?'해설 닫기':'해설 보기';
+  };
+  actions.appendChild(checkBtn); actions.appendChild(solBtn);
+  card.appendChild(actions);
+
+  const sol = document.createElement('div'); sol.className='sol-box'; sol.id='solBox'; sol.style.display='none';
+  sol.innerHTML = '<h3 style="margin-top:0;">📌 풀이 해설</h3>' +
+    '<span class="answer-line">정답: <strong>'+ (q.type==='mc' ? CIRC[q.ans] : escapeHtml(q.answer)) +'</strong></span>' +
+    (q.kw ? '<div style="margin:6px 0;">'+q.kw.map(k=>'<span class="kw">'+escapeHtml(k)+'</span>').join('')+'</div>' : '') +
+    '<ol class="explanation-list">'+(q.ex||[]).map(s=>'<li>'+s+'</li>').join('')+'</ol>';
+  card.appendChild(sol);
+
+  const nav = document.createElement('div'); nav.className='probpg-nav';
+  const prev = document.createElement('button'); prev.className='secondary'; prev.textContent='◀ 이전 문제';
+  prev.disabled = (currentIdx===0);
+  prev.onclick = ()=>{ if(currentIdx>0){currentIdx--; renderBank(); window.scrollTo({top:0,behavior:'smooth'});} };
+  const next = document.createElement('button'); next.className='primary'; next.textContent='다음 문제 ▶';
+  next.disabled = (currentIdx>=list.length-1);
+  next.onclick = ()=>{ if(currentIdx<list.length-1){currentIdx++; renderBank(); window.scrollTo({top:0,behavior:'smooth'});} };
+  nav.appendChild(prev); nav.appendChild(next);
+  card.appendChild(nav);
+
+  wrap.appendChild(card);
+}
+
+function numVal(s){
+  if(typeof s!=='string') s=String(s);
+  const t=s.trim().replace(/[\s,°%]/g,'');
+  if(/^[+-]?\d+$/.test(t)) return parseInt(t,10);
+  const fm=t.match(/^([+-]?\d+)\/(\d+)$/);
+  if(fm){const d=parseInt(fm[2],10); if(d!==0) return parseInt(fm[1],10)/d;}
+  if(/^[+-]?(\d+\.\d*|\.\d+)$/.test(t)) return parseFloat(t);
+  return NaN;
+}
+function answersMatch(user, expected){
+  const u=numVal(user), e=numVal(expected);
+  if(!Number.isNaN(u)&&!Number.isNaN(e)) return Math.abs(u-e)<=1e-9*Math.max(1,Math.abs(e));
+  const norm = s=>String(s).trim().replace(/[\s,−-]/g,'');
+  return norm(user)===norm(expected);
+}
+
+function updateDots(list, acc){
+  document.querySelectorAll('.probpg-progress .dot').forEach((d,i)=>{
+    d.classList.remove('done','wrong');
+    if(acc.byIdx[list[i]._origIdx]==='done') d.classList.add('done');
+    else if(acc.byIdx[list[i]._origIdx]==='wrong') d.classList.add('wrong');
+  });
+}
+
+function grade(q, list){
+  const res = $('resultBox');
+  const acc = accOf(q.unitId); acc.tries++; acc.byIdx = acc.byIdx||{};
+  const record = (ok)=>{
+    if(ok){ acc.correct++; acc.byIdx[q._origIdx]='done'; state.total++; state.correct++; }
+    else { acc.byIdx[q._origIdx]='wrong'; state.total++; }
+    state.history.unshift({date:new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}), unitName:unitById(q.unitId).name, diffLabel:DIFF_LABELS[q.diff-1], typeLabel:q.type==='mc'?'오지선다':'서술형', ok:ok});
+    state.unitStats[q.unitId]=acc;
+    save(); renderStats(); updateDots(list, acc);
+  };
+
+  if(q.type==='mc'){
+    const box=$('optsBox');
+    const sel=box.querySelector('.probpg-opt.sel');
+    if(!sel){ res.style.display='block'; res.className='probpg-result-msg'; res.style.background='var(--bad-bg)'; res.style.color='var(--bad)'; res.textContent='보기를 선택한 다음 채점해 주세요.'; return; }
+    const picked=parseInt(sel.dataset.i,10);
+    box.querySelectorAll('.probpg-opt').forEach((x,i)=>{
+      if(i===q.ans) x.classList.add('correct');
+      else if(parseInt(x.dataset.i,10)===picked && picked!==q.ans) x.classList.add('wrong');
+      x.style.cursor='default'; x.onclick=null;
+    });
+    res.style.display='block';
+    const ok = picked===q.ans;
+    if(ok){
+      res.className='probpg-result-msg'; res.style.background='var(--good-bg)'; res.style.color='var(--good)';
+      res.innerHTML='🎉 정답입니다!';
+      const sb=$('solBox'); if(sb) sb.style.display='block';
+      const sbt=document.querySelectorAll('.probpg-actions .secondary')[0]; if(sbt) sbt.textContent='해설 닫기';
+    } else {
+      res.className='probpg-result-msg'; res.style.background='var(--bad-bg)'; res.style.color='var(--bad)';
+      res.innerHTML='❌ 아쉬워요! 정답은 <strong>'+CIRC[q.ans]+'</strong> 입니다. 해설을 확인해 보세요.';
+    }
+    record(ok);
+  } else {
+    const inp=$('ansInput');
+    const user=inp?inp.value.trim():'';
+    if(!user){ res.style.display='block'; res.className='probpg-result-msg'; res.style.background='var(--bad-bg)'; res.style.color='var(--bad)'; res.textContent='답을 입력한 다음 채점해 주세요.'; return; }
+    res.style.display='block';
+    const matched = answersMatch(user, q.answer);
+    if(matched){
+      res.className='probpg-result-msg'; res.style.background='var(--good-bg)'; res.style.color='var(--good)';
+      res.innerHTML='🎉 정답입니다! (입력: '+escapeHtml(user)+')';
+      const sb=$('solBox'); if(sb) sb.style.display='block';
+      const sbt=document.querySelectorAll('.probpg-actions .secondary')[0]; if(sbt) sbt.textContent='해설 닫기';
+      record(true);
+    } else {
+      res.className='probpg-result-msg'; res.style.background='var(--bad-bg)'; res.style.color='var(--bad)';
+      res.innerHTML='❌ 입력하신 답과 모범답안이 다릅니다.<br/>모범답안: <strong>'+escapeHtml(q.answer)+'</strong><br/>해설을 확인하고, 아래에서 스스로 채점해 주세요.';
+      const sc=document.createElement('div'); sc.className='selfcheck';
+      const b1=document.createElement('button'); b1.className='primary'; b1.textContent='내 답이 맞아요 (정답 처리)';
+      b1.onclick=()=>{ sc.remove(); res.className='probpg-result-msg'; res.style.background='var(--good-bg)'; res.style.color='var(--good)'; res.innerHTML='✅ 정답으로 기록했습니다.'; record(true); };
+      const b2=document.createElement('button'); b2.className='bad-btn'; b2.textContent='틀렸어요 (오답 처리)';
+      b2.onclick=()=>{ sc.remove(); res.className='probpg-result-msg'; res.style.background='var(--bad-bg)'; res.style.color='var(--bad)'; res.innerHTML='❌ 오답으로 기록했습니다. 해설을 꼭 확인하세요.'; record(false); };
+      sc.appendChild(b1); sc.appendChild(b2);
+      res.appendChild(sc);
+    }
+  }
+}
+
+function renderStats(){
+  const tot = state.total;
+  const acc = state.correct;
+  $('statTotal').textContent = tot;
+  $('statAccuracy').textContent = tot?Math.round(acc/tot*100)+'%':'0%';
+  $('statWrong').textContent = (state.history||[]).filter(h=>!h.ok).length;
+
+  const ws = $('wrongNotesList'); if(ws){ ws.innerHTML='';
+    (state.history||[]).filter(h=>!h.ok).slice(0,8).forEach(h=>{
+      const item = document.createElement('div'); item.className='q-item';
+      item.innerHTML = '<div class="q-head"><span class="pill no">오답</span><span class="q-text"><strong>'+h.unitName+'</strong> · '+h.diffLabel+' · '+h.typeLabel+' · '+h.date+'</span></div>';
+      ws.appendChild(item);
+    });
+    if(!ws.children.length) ws.innerHTML='<p class="muted">아직 기록된 오답이 없습니다.</p>';
+  }
+
+  const us = $('unitStats'); if(us){ us.innerHTML='';
+    UNITS.forEach(u=>{
+      const a = accOf(u.id);
+      const row = document.createElement('div'); row.className='unit-progress';
+      row.innerHTML = '<div style="display:flex;justify-content:space-between;font-weight:600;"><span>'+u.name+'</span><span>'+(a.tries?Math.round(a.correct/a.tries*100)+'%':'0%')+
+                      '</span></div><div class="muted" style="font-size:.85rem;">시도 '+a.tries+' · 정답 '+a.correct+'</div>'+
+                      '<div class="meter"><span style="width:'+(a.tries?Math.round(a.correct/a.tries*100):0)+'%"></span></div>';
+      us.appendChild(row);
+    });
+  }
+
+  const hl = $('historyList'); if(hl){ hl.innerHTML='';
+    (state.history||[]).slice(0,12).forEach(h=>{
+      const idx = DIFF_LABELS.indexOf(h.diffLabel)+1;
+      const r = document.createElement('div'); r.className='history-item';
+      r.innerHTML = '<div class="history-meta"><span class="pill '+(h.ok?'ok':'no')+'">'+(h.ok?'정답':'오답')+'</span>'+
+                    '<span>'+h.unitName+'</span><span class="badge d'+(idx||1)+'">'+h.diffLabel+'</span>'+
+                    '<span class="badge '+(h.typeLabel==='오지선다'?'t-mc':'t-sub')+'">'+h.typeLabel+'</span>'+
+                    '<span class="muted">'+h.date+'</span></div>';
+      hl.appendChild(r);
+    });
+    if(!hl.children.length) hl.innerHTML='<p class="muted">최근 학습 기록이 비어 있어요.</p>';
+  }
+}
+
+const NOTES_KEY = 'mathStudy.notes.v1';
+let notes = loadNotes();
+
+function loadNotes(){
+  try { const raw = localStorage.getItem(NOTES_KEY); if(raw) return JSON.parse(raw); } catch(e){}
+  return { drafts:{}, saved:{} };
+}
+function saveNotes(){ try { localStorage.setItem(NOTES_KEY, JSON.stringify(notes)); } catch(e){} }
+
+/* ---------- 작업 되돌리기 / 다시하기 (노트 삭제 · 풀이 지우기 · 기록 초기화 복원) ---------- */
+const WORK_HISTORY = { undo: [], redo: [] };
+const WORK_LIMIT = 100;
+
+function whGet(kind){
+  if(kind === 'saved') return { saved: notes.saved || {} };
+  if(kind === 'draft') return { unit: unitId, strokes: (notes.drafts[unitId] || []) };
+  return { state: state };
+}
+function whSet(kind, data){
+  if(kind === 'saved'){ notes.saved = data.saved; }
+  else if(kind === 'draft'){ notes.drafts[data.unit] = data.strokes; }
+  else { state = data.state; }
+  saveNotes(); save();
+  renderNoteList(); renderStats();
+  if(kind === 'draft' && data.unit === unitId){ pad.actions = []; drawStrokes(currentStrokes()); }
+}
+function whSnap(kind){ return JSON.parse(JSON.stringify(whGet(kind))); }
+function whPush(label, kind){
+  WORK_HISTORY.undo.push({ label: label, kind: kind, data: whSnap(kind) });
+  if(WORK_HISTORY.undo.length > WORK_LIMIT) WORK_HISTORY.undo.shift();
+  WORK_HISTORY.redo = [];
+  whUI();
+}
+function whPushBefore(label, kind, beforeData){
+  // 작업 직전 스냅샷을 직접 기록 (지우개·펜처럼 진행 중에 상태가 바뀌는 작업용)
+  WORK_HISTORY.undo.push({ label: label, kind: kind, data: beforeData });
+  if(WORK_HISTORY.undo.length > WORK_LIMIT) WORK_HISTORY.undo.shift();
+  WORK_HISTORY.redo = [];
+  whUI();
+}
+function whUndo(){
+  const e = WORK_HISTORY.undo.pop(); if(!e) return;
+  const after = whSnap(e.kind);
+  whSet(e.kind, e.data);
+  WORK_HISTORY.redo.push({ label: e.label, kind: e.kind, data: after });
+  whUI();
+}
+function whRedo(){
+  const e = WORK_HISTORY.redo.pop(); if(!e) return;
+  const before = whSnap(e.kind);
+  whSet(e.kind, e.data);
+  WORK_HISTORY.undo.push({ label: e.label, kind: e.kind, data: before });
+  if(WORK_HISTORY.undo.length > WORK_LIMIT) WORK_HISTORY.undo.shift();
+  whUI();
+}
+function whUI(){
+  const u = $('workUndoBtn'), r = $('workRedoBtn'), h = $('workHint');
+  if(u){ u.disabled = !WORK_HISTORY.undo.length; u.title = WORK_HISTORY.undo.length ? '되돌리기: '+WORK_HISTORY.undo[WORK_HISTORY.undo.length-1].label : ''; }
+  if(r){ r.disabled = !WORK_HISTORY.redo.length; r.title = WORK_HISTORY.redo.length ? '다시하기: '+WORK_HISTORY.redo[WORK_HISTORY.redo.length-1].label : ''; }
+  if(h){
+    const parts = [];
+    if(WORK_HISTORY.undo.length) parts.push('↩️ '+WORK_HISTORY.undo[WORK_HISTORY.undo.length-1].label+' 되돌리기 가능');
+    if(WORK_HISTORY.redo.length) parts.push('↪️ '+WORK_HISTORY.redo[WORK_HISTORY.redo.length-1].label+' 다시하기 가능');
+    h.textContent = parts.join(' · ');
+  }
+}
+
+/* ---------- 펜 풀이 패드 ---------- */
+const pad = { ctx:null, drawing:false, stroke:null, tool:'pen', width:3, eraserWidth:20, eraserAction:null, eraserBefore:null, actions:[] };
+let padCssSize = null;   // 캔버스가 실제로 커지거나 줄어들 때만 비트맵을 다시 만듦 (획 보존)
+
+function padCanvas(){ return $('padCanvas'); }
+
+function resizePad(){
+  const cv = padCanvas(); if(!cv) return;
+  const rect = cv.getBoundingClientRect();
+  if(rect.width < 10 || rect.height < 10) return;   // 화면에 보이지 않을 때는 초기화하지 않음
+  const dpr = window.devicePixelRatio || 1;
+  const sizeChanged = !padCssSize || padCssSize.w !== rect.width || padCssSize.h !== rect.height;
+  padCssSize = { w: rect.width, h: rect.height };
+  if(sizeChanged){
+    // 캔버스 CSS 크기가 실제로 바뀔 때만 비트맵을 새로 만들고, 바로 아래에서 저장된 획을 다시 그려 보존
+    cv.width = Math.max(1, Math.round(rect.width * dpr));
+    cv.height = Math.max(1, Math.round(rect.height * dpr));
+  }
+  const ctx = cv.getContext('2d');
+  if(!pad.ctx || sizeChanged){
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    pad.ctx = ctx;
+  }
+  drawStrokes(currentStrokes());   // 문제 이동 · 창 크기 변경 후에도 획이 항상 다시 그려짐
+}
+
+function currentStrokes(){
+  // 항상 실제 저장소의 배열을 반환해야 새로 그린 획이 즉시 저장·유지됨 (임시 배열 반환 시 획 소실)
+  if(!Array.isArray(notes.drafts[unitId])) notes.drafts[unitId] = [];
+  return notes.drafts[unitId];
+}
+
+function drawStrokes(strokes){
+  const ctx = pad.ctx; if(!ctx) return;
+  const cv = padCanvas();
+  ctx.clearRect(0, 0, cv.width, cv.height);
+  const cw = cv.getBoundingClientRect().width, ch = cv.getBoundingClientRect().height;
+  ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, cw, ch);
+  ctx.lineWidth = 1; ctx.strokeStyle = '#dbe6f5';
+  for(let gy = 24; gy < ch; gy += 24){ ctx.beginPath(); ctx.moveTo(0, gy); ctx.lineTo(cw, gy); ctx.stroke(); }
+  for(let gx = 24; gx < cw; gx += 24){ ctx.beginPath(); ctx.moveTo(gx, 0); ctx.lineTo(gx, ch); ctx.stroke(); }
+  strokes.forEach(s=>{
+    if(!s.points || !s.points.length) return;
+    ctx.beginPath();
+    ctx.strokeStyle = s.color || '#1e2a44';
+    ctx.lineWidth = s.width || 3;
+    s.points.forEach((p,i)=>{ if(i===0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y); });
+    ctx.stroke();
+  });
+}
+
+function padPos(e){
+  const r = padCanvas().getBoundingClientRect();
+  return { x: e.clientX - r.left, y: e.clientY - r.top };
+}
+/** 지우개 커서 원을 지우개 위치·크기에 맞게 표시 */
+function moveEraserCursor(p){
+  const c = $('eraserCursor'); if(!c) return;
+  const d = pad.eraserWidth * 2;
+  c.style.width = d + 'px'; c.style.height = d + 'px';
+  c.style.display = 'block';
+  c.style.left = (p.x|0) + 'px'; c.style.top = (p.y|0) + 'px';
+}
+function hideEraserCursor(){
+  const c = $('eraserCursor'); if(c) c.style.display = 'none';
+}
+/** 지우개 경로(er)로 닿은 부분만 잘라내고 즉시 저장소에 반영. 변경된 획은 pad.eraserAction에 누적됨 */
+function eraseWith(er){
+  const list = currentStrokes();
+  const next = [], replaced = [];
+  list.forEach(st => {
+    const res = cutStroke(st, er);
+    const unchanged = res.pieces.length === 1 && res.pieces[0].points.length === st.points.length;
+    if(unchanged) next.push(st);
+    else {
+      // 지우개가 닿은 부분만 잘라내고, 남은 조각들은 그대로 보존 (선 전체 삭제 방지)
+      for(const pc of res.pieces) next.push(pc);
+      replaced.push({ orig: st, pieces: res.pieces });
+    }
+  });
+  if(replaced.length){
+    notes.drafts[unitId] = next;
+    if(pad.eraserAction) pad.eraserAction.data.push.apply(pad.eraserAction.data, replaced);
+    return true;
+  }
+  return false;
+}
+function onPadDown(e){
+  e.preventDefault();
+  pad.drawing = true;
+  const p = padPos(e);
+  if(pad.tool === 'erase'){
+    pad.stroke = { tool:'erase', width: pad.eraserWidth, color:'#1e2a44', points:[p] };
+    pad.eraserAction = { kind:'erase', data:[] };
+    pad.eraserBefore = whSnap('draft');   // 지우기 시작 전 전체 획을 기록 → 되돌리기로 복원 가능
+    moveEraserCursor(p);
+    if(eraseWith(pad.stroke)) drawStrokes(currentStrokes());   // 닿는 즉시 지움 + 즉시 다시 그림
+  } else {
+    pad.stroke = { tool: pad.tool, width: pad.width, color:'#1e2a44', points:[p] };
+  }
+  if(padCanvas().setPointerCapture) padCanvas().setPointerCapture(e.pointerId);
+}
+function onPadMove(e){
+  if(!pad.drawing) return;
+  e.preventDefault();
+  const pts = pad.stroke.points;
+  const p = padPos(e);
+  pts.push(p);
+  if(pad.stroke.tool === 'erase'){
+    moveEraserCursor(p);
+    if(eraseWith(pad.stroke)) drawStrokes(currentStrokes());   // 드래그 중에도 매 무브마다 즉시 반영
+    return;
+  }
+  if(pts.length >= 2){
+    const ctx = pad.ctx, s = pad.stroke;
+    const p0 = pts[pts.length-2], p1 = pts[pts.length-1];
+    ctx.beginPath();
+    ctx.strokeStyle = s.color; ctx.lineWidth = s.width;
+    ctx.moveTo(p0.x, p0.y); ctx.lineTo(p1.x, p1.y); ctx.stroke();
+  }
+}
+/** 지우개가 지나간 부분만 선에서 잘라내는 부분 지우개 */
+function segDist(px, py, ax, ay, bx, by){
+  const dx = bx - ax, dy = by - ay;
+  const L2 = dx*dx + dy*dy;
+  let t = L2 ? ((px-ax)*dx + (py-ay)*dy) / L2 : 0;
+  t = Math.max(0, Math.min(1, t));
+  return Math.hypot(px - (ax + t*dx), py - (ay + t*dy));
+}
+function pointErased(p, er){
+  const pts = er.points, r = er.width;
+  if(!pts || !pts.length) return false;
+  if(pts.length === 1) return Math.hypot(p.x-pts[0].x, p.y-pts[0].y) <= r;
+  for(let i = 0; i < pts.length - 1; i++){
+    if(segDist(p.x, p.y, pts[i].x, pts[i].y, pts[i+1].x, pts[i+1].y) <= r) return true;
+  }
+  return false;
+}
+function cutStroke(st, er){
+  // 지우개에 닿지 않은 점들만 이어붙여 여러 개의 조각 획을 만든다 (닿은 구간만 잘라냄)
+  const pieces = [];
+  let current = [];
+  const flush = () => {
+    if(current.length >= 2) pieces.push({ tool: st.tool||'pen', width: st.width, color: st.color, points: current.slice() });
+    current = [];
+  };
+  st.points.forEach(p => { if(pointErased(p, er)) flush(); else current.push(p); });
+  flush();
+  return { pieces };
+}
+function onPadUp(){
+  if(!pad.drawing) return;
+  pad.drawing = false;
+  const s = pad.stroke; if(!s || !s.points.length) return;
+  if(s.tool === 'pen'){
+    const list = currentStrokes();
+    const before = whSnap('draft');          // 그리기 전 획 상태
+    list.push(s);
+    pad.actions.push({ kind:'add', stroke:s });
+    whPushBefore('펜 그리기','draft', before);   // 펜 획도 글로벌 되돌리기 대상
+  } else {
+    hideEraserCursor();
+    const a = pad.eraserAction;
+    const before = pad.eraserBefore;
+    pad.stroke = null; pad.eraserAction = null; pad.eraserBefore = null;
+    if(a && a.data.length){
+      pad.actions.push(a);
+      if(before) whPushBefore('지우개로 지우기','draft', before);   // 지운 획이 되돌리기로 복원됨
+    }
+  }
+  saveNotes(); drawStrokes(currentStrokes());
+}
+function undoPad(){
+  const a = pad.actions.pop(); if(!a) return;
+  const list = currentStrokes();
+  if(a.kind === 'add'){ const i = list.indexOf(a.stroke); if(i >= 0) list.splice(i, 1); }
+  else if(a.kind === 'del'){ a.strokes.forEach(st => list.push(st)); }
+  else if(a.kind === 'erase'){
+    // 지운 조각들을 제거하고 원래 획을 복원 (나중에 잘린 조각부터 역순으로)
+    for(let ai = a.data.length - 1; ai >= 0; ai--){
+      const r = a.data[ai];
+      r.pieces.forEach(pc => { const i = list.indexOf(pc); if(i >= 0) list.splice(i, 1); });
+      list.push(r.orig);
+    }
+  }
+  saveNotes(); drawStrokes(list);
+}
+function clearPad(){
+  if(!confirm('현재 작성 중인 풀이 내용을 모두 지울까요?')) return;
+  whPush('풀이 지우기','draft');
+  notes.drafts[unitId] = []; pad.actions = [];
+  saveNotes(); drawStrokes([]);
+}
+function setToolUI(){
+  const pen = $('toolPen'), er = $('toolErase'), cv = padCanvas();
+  const erRow = $('eraserSizeRow');
+  if(pen) pen.classList.toggle('active', pad.tool==='pen');
+  if(er) er.classList.toggle('active', pad.tool==='erase');
+  if(cv) cv.classList.toggle('erasing', pad.tool==='erase');
+  if(erRow) erRow.style.display = pad.tool==='erase' ? 'flex' : 'none';
+  if(!pad.drawing) hideEraserCursor();
+  updatePadHint();
+}
+function updatePadHint(){
+  const h = $('padHint'); if(!h) return;
+  h.textContent = pad.tool==='pen' ? ('✏️ 펜 · 굵기 ' + pad.width + 'px') : ('🧽 지우개 · 굵기 ' + pad.eraserWidth + 'px');
+}
+function savePadNote(){
+  const strokes = currentStrokes();
+  if(!strokes.length){ alert('저장할 풀이 내용이 없습니다. 먼저 펜으로 풀이를 적어 주세요.'); return; }
+  const title = ($('noteTitle').value||'').trim() || '풀이 노트';
+  whPush('노트 저장','saved');
+  if(!notes.saved[unitId]) notes.saved[unitId] = [];
+  notes.saved[unitId].unshift({ title, strokes: JSON.parse(JSON.stringify(strokes)), date: new Date().toLocaleString('ko-KR',{month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'}) });
+  saveNotes(); renderNoteList();
+}
+function noteThumb(strokes){
+  const w = 180, h = 130;
+  const c = document.createElement('canvas'); c.width = w; c.height = h;
+  const ctx = c.getContext('2d');
+  ctx.fillStyle = '#fff'; ctx.fillRect(0, 0, w, h);
+  let minX=1e9,minY=1e9,maxX=-1e9,maxY=-1e9;
+  strokes.forEach(s=>s.points.forEach(p=>{
+    minX=Math.min(minX,p.x); minY=Math.min(minY,p.y);
+    maxX=Math.max(maxX,p.x); maxY=Math.max(maxY,p.y);
+  }));
+  if(minX > maxX) return c;
+  const bw = Math.max(1, maxX-minX), bh = Math.max(1, maxY-minY);
+  const k = Math.min((w-20)/bw, (h-20)/bh, 10);
+  ctx.lineCap='round'; ctx.lineJoin='round';
+  ctx.scale(k, k);
+  ctx.translate((w/k - (minX+maxX))/2, (h/k - (minY+maxY))/2);
+  strokes.forEach(s=>{ if(!s.points || !s.points.length) return;
+    ctx.beginPath(); ctx.strokeStyle=s.color||'#1e2a44'; ctx.lineWidth=s.width||3;
+    s.points.forEach((p,i)=>{ if(i===0) ctx.moveTo(p.x,p.y); else ctx.lineTo(p.x,p.y); });
+    ctx.stroke();
+  });
+  return c;
+}
+function renderNoteList(){
+  const saved = notes.saved[unitId] || [];
+  const info = $('noteSavedInfo'); if(info) info.textContent = saved.length ? '저장된 노트 ' + saved.length + '개' : '';
+  const wrap = $('noteList'); if(!wrap) return;
+  wrap.innerHTML = '';
+  if(!saved.length){ wrap.innerHTML = '<p class="muted">아직 저장된 풀이 노트가 없습니다. 풀이를 쓰고 <strong>이 단원에 저장</strong>을 눌러 보세요.</p>'; return; }
+  saved.forEach((n,i)=>{
+    const item = document.createElement('div'); item.className='history-item';
+    const th = noteThumb(n.strokes || []); th.className = 'note-thumb';
+    item.innerHTML = '<div style="font-weight:700;">'+escapeHtml(n.title||('풀이 노트 '+(i+1)))+'</div>' +
+      '<div class="history-meta"><span class="pill gray">'+escapeHtml(n.date)+'</span></div>';
+    item.insertBefore(th, item.children[1]);
+    const acts = document.createElement('div'); acts.className='data-bar';
+    const loadBtn = document.createElement('button'); loadBtn.className='secondary mini-btn'; loadBtn.textContent='불러오기';
+    loadBtn.onclick = ()=>{ whPush('노트 불러오기','draft'); notes.drafts[unitId] = JSON.parse(JSON.stringify(n.strokes||[])); pad.actions = []; saveNotes(); drawStrokes(currentStrokes()); updatePadHint(); };
+    const delBtn = document.createElement('button'); delBtn.className='mini-btn danger'; delBtn.textContent='삭제';
+    delBtn.onclick = ()=>{ if(!confirm('이 노트를 삭제할까요?')) return; whPush('노트 삭제','saved'); notes.saved[unitId].splice(i,1); saveNotes(); renderNoteList(); };
+    acts.appendChild(loadBtn); acts.appendChild(delBtn);
+    item.appendChild(acts);
+    wrap.appendChild(item);
+  });
+}
+function renderNote(){
+  pad.actions = [];
+  resizePad();
+  const ti = $('noteTitle'); if(ti) ti.value = '';
+  setToolUI();
+  renderNoteList();
+}
+
+document.addEventListener('DOMContentLoaded', function(){
+  $('resetStatsBtn').onclick = function(){
+    if(!confirm('학습 기록을 초기화할까요?')) return;
+    whPush('학습기록 초기화','state');
+    state={total:0,correct:0,history:[],unitStats:{}}; save(); renderStats();
+  };
+  $('exportBtn').onclick = function(){
+    const blob=new Blob([JSON.stringify(state)],{type:'application/json'});
+    const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='math-study-backup.json'; a.click();
+  };
+  $('importBtn').onclick = function(){ $('importFile').click(); };
+  $('importFile').onchange = function(e){
+    const f=e.target.files[0]; if(!f) return;
+    const r=new FileReader();
+    r.onload=function(){ try{ const d=JSON.parse(r.result); whPush('백업 가져오기','state'); state=Object.assign({total:0,correct:0,history:[],unitStats:{}}, d); save(); renderStats(); }catch(err){ alert('백업 파일을 읽을 수 없어요.'); } };
+    r.readAsText(f);
+  };
+  const cv = $('padCanvas');
+  if(cv){
+    cv.addEventListener('pointerdown', onPadDown);
+    cv.addEventListener('pointermove', onPadMove);
+    cv.addEventListener('pointerup', onPadUp);
+    cv.addEventListener('pointercancel', onPadUp);
+    window.addEventListener('resize', resizePad);
+    $('toolPen').onclick = ()=>{ pad.tool='pen'; setToolUI(); };
+    $('toolErase').onclick = ()=>{ pad.tool='erase'; setToolUI(); };
+    $('widthMinus').onclick = ()=>{ pad.width = Math.max(1, pad.width-1); updatePadHint(); };
+    $('widthPlus').onclick = ()=>{ pad.width = Math.min(12, pad.width+1); updatePadHint(); };
+    const erW = $('eraserWidth');
+    if(erW){
+      erW.addEventListener('input', ()=>{
+        const v = Math.max(6, Math.min(60, parseInt(erW.value,10)||20));
+        pad.eraserWidth = v;
+        const lbl = $('eraserWidthVal'); if(lbl) lbl.textContent = v;
+        updatePadHint();
+      });
+    }
+    $('eraserWidth') && (function(){ const s=$('eraserWidth'); if(s) s.value = Math.max(6, Math.min(60, pad.eraserWidth)); })();
+    $('undoBtn').onclick = undoPad;
+    $('noteClearBtn').onclick = clearPad;
+    $('noteSaveBtn').onclick = savePadNote;
+  }
+  $('workUndoBtn').onclick = whUndo;
+  $('workRedoBtn').onclick = whRedo;
+  document.addEventListener('keydown', function(e){
+    if(!(e.ctrlKey||e.metaKey)) return;
+    const k = e.key.toLowerCase();
+    if(k === 'z' && !e.shiftKey){
+      e.preventDefault();
+      if(WORK_HISTORY.undo.length) whUndo();
+      else if(pad.actions.length) undoPad();   // 펜 획 되돌리기도 Ctrl+Z 로 가능
+    } else if(k === 'z' && e.shiftKey){ e.preventDefault(); whRedo(); }
+    else if(k === 'y'){ e.preventDefault(); whRedo(); }
+  });
+  renderUnits(); renderConcept(); renderFilter(); renderBank(); renderStats(); renderNote(); whUI();
+});
+})();
+</script>
+
+</body>
+</html>
